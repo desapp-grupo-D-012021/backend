@@ -12,6 +12,10 @@ public abstract class TypeReview {
     private String userNameInPlatform;
     private String language;
 
+    public Integer getRating(){
+        return this.rating;
+    }
+
     public abstract static class Builder {
         private String text;
         private String extendedText;

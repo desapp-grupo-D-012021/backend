@@ -5,27 +5,32 @@ public class Review extends TypeReview {
     private Boolean spoilerAlert;
     private String city;
 
-    public static class Builder extends TypeReview.Builder{
+    public String getCity() {
+        return this.city;
+    }
+
+    public static class Builder2 extends TypeReview.Builder{
 
         private Boolean spoilerAlert;
         private String city;
 
 
-        public Builder withSpoilerAlert(Boolean spoilerAlert){
+        public Builder2 withSpoilerAlert(Boolean spoilerAlert){
             this.spoilerAlert = spoilerAlert;
             return this;
         }
 
-        public Builder withCity(String city){
+        public Builder2 withCity(String city){
             this.city = city;
             return this;
         }
+
 
         public Review build(){
             return new Review(this);
         }
     }
-    private Review(final Builder builder) {
+    Review(final Builder2 builder) {
         super(builder);
         this.spoilerAlert = builder.spoilerAlert;
         this.city = builder.city;
