@@ -5,6 +5,7 @@ plugins {
 	id 'war'
 	id 'idea'
 	id 'eclipse'
+	id 'jacoco'
 }
 
 eclipseJdt {
@@ -21,7 +22,9 @@ compileTestJava.options.encoding = 'utf-8'
 
 group = 'ar.edu.unq.desapp.grupoD'
 version = '0.0.1-SNAPSHOT'
+
 sourceCompatibility = '11'
+targetCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -38,8 +41,17 @@ dependencies {
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	testCompile 'junit:junit:4.12'
 }
 
 test {
 	useJUnitPlatform()
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.enabled true
+		html.enabled false
+	}
 }
