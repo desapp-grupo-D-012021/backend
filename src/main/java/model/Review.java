@@ -1,6 +1,6 @@
 package model;
 
-public class Review extends TypeReview {
+public class Review extends ReviewType {
 
     private Boolean spoilerAlert;
     private String city;
@@ -9,18 +9,18 @@ public class Review extends TypeReview {
         return this.city;
     }
 
-    public static class Builder2 extends TypeReview.Builder{
+    public static class Builder extends ReviewType.Builder{
 
         private Boolean spoilerAlert;
         private String city;
 
 
-        public Builder2 withSpoilerAlert(Boolean spoilerAlert){
+        public Builder withSpoilerAlert(Boolean spoilerAlert){
             this.spoilerAlert = spoilerAlert;
             return this;
         }
 
-        public Builder2 withCity(String city){
+        public Builder withCity(String city){
             this.city = city;
             return this;
         }
@@ -30,7 +30,7 @@ public class Review extends TypeReview {
             return new Review(this);
         }
     }
-    Review(final Builder2 builder) {
+    Review(final Builder builder) {
         super(builder);
         this.spoilerAlert = builder.spoilerAlert;
         this.city = builder.city;

@@ -1,8 +1,11 @@
 package service;
 
-import model.TypeReview;
+import model.Movie;
+import model.Review;
+import model.ReviewType;
 
 public interface ReviewService {
 
-    void addReview(TypeReview review);
+    void addReview(Review builder, Movie mockMovie);
+    void rateAReviewPositevely(ReviewType review);
 }

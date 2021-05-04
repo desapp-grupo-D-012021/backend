@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-public abstract class TypeReview {
+public abstract class ReviewType {
 
     private String text;
     private String extendedText;
@@ -11,9 +11,18 @@ public abstract class TypeReview {
     private String platform;
     private String userNameInPlatform;
     private String language;
+    private Integer likes;
 
     public Integer getRating(){
         return this.rating;
+    }
+
+    public Integer getLikes(){
+        return likes;
+    }
+
+    public void ratePositevely(){
+        this.likes++;
     }
 
     public abstract static class Builder {
@@ -60,11 +69,11 @@ public abstract class TypeReview {
             return this;
         }
 
-        public abstract TypeReview build();
+        public abstract ReviewType build();
 
     }
 
-    protected TypeReview(final Builder builder){
+    protected ReviewType(final Builder builder){
         this.text = builder.text;
         this.extendedText = builder.extendedText;
         this.rating = builder.rating;
@@ -72,5 +81,6 @@ public abstract class TypeReview {
         this.platform = builder.platform;
         this.userNameInPlatform = builder.userNameInPlatform;
         this.language = builder.language;
+        this.likes = 0;
     }
 }
