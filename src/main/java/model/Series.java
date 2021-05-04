@@ -12,4 +12,12 @@ public class Series extends Media {
         this.episodes = new ArrayList<Episode>();
     }
 
+    public List<Episode> getEpisodes() {
+        return this.episodes;
+    }
+
+    public void addEpisode(Episode episode) {
+        this.episodes.add(episode);
+    }
+
 }

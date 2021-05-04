@@ -9,4 +9,8 @@ public abstract class Video extends Media {
         this.runtimeMinutes = runtimeMinutes;
     }
 
+    public int getRuntimeMinutes() {
+        return this.runtimeMinutes;
+    }
+
 }
