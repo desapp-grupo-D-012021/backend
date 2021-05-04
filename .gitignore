@@ -21,3 +21,6 @@ out/
 
 # Local build
 output/
+
+# VScode
+.project
