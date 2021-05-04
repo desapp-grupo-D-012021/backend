@@ -18,6 +18,7 @@ public class EpisodeTest {
     private int runtimeMinutes = 62;
 
     private Review lateToTheParty;
+    private PremiumReview flickFilosopher;
 
     @Test
     void testRuntimeMinutes() {
@@ -40,5 +41,23 @@ public class EpisodeTest {
     @Test
     void testAddReview() {
         lateToTheParty = mock(Review.class);
+
+        winterIsComing = new Episode(episodeImdbId, title, primaryTitle, originalTitle, runtimeMinutes);
+        winterIsComing.addReview(lateToTheParty);
+
+        assertEquals(1, winterIsComing.getReviews().size());
+        assertEquals(lateToTheParty, winterIsComing.getReviews().get(0));
     }
+    @Test
+    void testAddPremiumReview() {
+        flickFilosopher = mock(PremiumReview.class);
+
+        winterIsComing = new Episode(episodeImdbId, title, primaryTitle, originalTitle, runtimeMinutes);
+        winterIsComing.addPremiumReview(flickFilosopher);
+
+        assertEquals(1, winterIsComing.getPremiumReviews().size());
+        assertEquals(flickFilosopher, winterIsComing.getPremiumReviews().get(0));
+    }
+
+    //TODO: testGetComments()
 }
