@@ -35,8 +35,8 @@ public abstract class Media {
     }
 
     //TODO: (ws?) method to call reviews & critics
-    public List<TypeReview> getComments() {
-        List<TypeReview> comments = new ArrayList<TypeReview>();
+    public List<ReviewType> getComments() {
+        List<ReviewType> comments = new ArrayList<ReviewType>();
 		comments.addAll(this.getPremiumReviews());
         comments.addAll(this.getReviews());
         return comments;
