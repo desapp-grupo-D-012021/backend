@@ -26,18 +26,27 @@ public abstract class Media {
 	}
 
     //TODO: add filters (platform, spoiler, type, language, country)
+    public List<Review> getReviews() {
+        return this.reviews;
+    }
+
+    public List<PremiumReview> getPremiumReviews() {
+        return this.premiumReviews;
+    }
+
+    //TODO: (ws?) method to call reviews & critics
     public List<TypeReview> getComments() {
         List<TypeReview> comments = new ArrayList<TypeReview>();
-		comments.addAll(premiumReviews);
-        comments.addAll(reviews);
+		comments.addAll(this.getPremiumReviews());
+        comments.addAll(this.getReviews());
         return comments;
 	}
 
     public void addReview(Review review) {
-		reviews.add(review);
+		this.reviews.add(review);
 	}
 
     public void addPremiumReview(PremiumReview premiumReview) {
-		premiumReviews.add(premiumReview);
+		this.premiumReviews.add(premiumReview);
 	}
 }
