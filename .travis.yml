@@ -1,18 +1,16 @@
 language: java
-
 jdk:
-  - oraclejdk11
-
+- oraclejdk11
 before_install:
-  - chmod +x gradlew
-  - sudo apt-get install jq
-  - wget -O ~/codacy-coverage-reporter-assembly-latest.jar $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r .assets[0].browser_download_url)
-
+- chmod +x gradlew
+- sudo apt-get install jq
+- wget -O ~/codacy-coverage-reporter-assembly-latest.jar $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest
+  | jq -r .assets[0].browser_download_url)
 script:
-  - ./gradlew check
-  - ./gradlew jacocoTestReport
-
+- "./gradlew check"
+- "./gradlew jacocoTestReport"
 after_success:
-#  - java -jar ~/codacy-coverage-reporter-assembly-latest.jar report -l Java -r /build/reports/jacoco/test/jacoco.xml
-#  - bash <(curl -Ls https://coverage.codacy.com/get.sh)
-  - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
+env:
+  global:
+    secure: l7JI4BXUG5QIc3mNiw8iBLAMvd3V+ng4PEXLzU9k9oD2M2lf/pS74rHvh3x571ck4MTkH+FPWUGnAknpmky2kfVILpTQgNKUveW1ceiAkQot/Cppu276EMmjvfoRRcCfXqAl+HqFujmTML9cZH3/QKHafhfe6jje0EJOkeqpNVJIMgCYrRot9uXImN8AIvrWLGW3tUmG/vOdnupHig5SikVgNo90q32Hw3HbO3JXIHoK2SPxaFpml/C2jJvxA6feEhXwVWdPGrERbNvHDoNbsnDFegk9fvQGnJBAyUA017bU+SzdwJYOnYlkV9Qq5ey8QJsfkvM/oEOFBy2ybAYjjTiuX76omjLRrfElLe+/QuXhB0ZO/xurkrqO3/M4BtklTM+u6E9u4WMJegUNUs/q+CvVfp6KYM/ZX1/jfCPxyWgycaktI3YZDCkbZ+qXgNa0tZRI/JT8WSsuslMm6OOP0+VfI/cuiIIWocHZhk6/MpxnQwNNSeURHqgNanYTxkO5u+zjh/+3Qbq0Xm8MnDt8gw2ji3iB+dXzxMDZFkuA4pfKvYq4b9qespUHgDscbJj1tVQnCuPxa79oRShQZjds+lQY5mb5jzqy1YrFrIb/RuRapFD0qpLvjGaFkFjYkZfXTVEYU2h0MYbNvYfLqcBIu12XskVrdYJnnSBjOL3JVuo=
