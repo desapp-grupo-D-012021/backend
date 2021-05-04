@@ -27,8 +27,10 @@ public abstract class Media {
 
     //TODO: add filters (platform, spoiler, type, language, country)
     public List<TypeReview> getComments() {
-        TypeReview comments = new ArrayList<TypeReview>();
-		return comments.addAll(premiumReviews).addAll(reviews);
+        ArrayList<TypeReview> comments = new ArrayList<TypeReview>();
+		comments.addAll(premiumReviews);
+        comments.addAll(reviews);
+        return comments;
 	}
 
     public void addReview(Review review) {
