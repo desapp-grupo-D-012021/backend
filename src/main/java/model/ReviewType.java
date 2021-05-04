@@ -12,17 +12,26 @@ public abstract class ReviewType {
     private String userNameInPlatform;
     private String language;
     private Integer likes;
+    private  Integer dislikes;
 
     public Integer getRating(){
         return this.rating;
     }
 
     public Integer getLikes(){
-        return likes;
+        return this.likes;
     }
 
     public void ratePositevely(){
         this.likes++;
+    }
+
+    public Integer getDislikes(){
+        return this.dislikes;
+    }
+
+    public void rateNegatively(){
+        this.dislikes++;
     }
 
     public abstract static class Builder {
@@ -82,5 +91,6 @@ public abstract class ReviewType {
         this.userNameInPlatform = builder.userNameInPlatform;
         this.language = builder.language;
         this.likes = 0;
+        this.dislikes = 0;
     }
 }

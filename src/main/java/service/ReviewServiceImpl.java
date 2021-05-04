@@ -1,8 +1,6 @@
 package service;
 
-import model.Movie;
-import model.Review;
-import model.ReviewType;
+import model.*;
 import model.ReviewType;
 import persistence.ReviewDao;
 
@@ -21,5 +19,12 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void rateAReviewPositevely(ReviewType review) {
         this.dao.rateAReviewPositevely(review);
+
     }
+
+    @Override
+    public void rateAReviewNegatively(ReviewType premiumReview) {
+        this.dao.rateAReviewNegatively(premiumReview);
+    }
+
 }
