@@ -1,10 +1,18 @@
 package persistence;
 
-import model.TypeReview;
+import model.Movie;
+import model.Review;
+import model.ReviewType;
 
 public class ReviewDaoImpl implements ReviewDao {
+
     @Override
-    public void addReview(TypeReview review) {
-        //Agrega la review a la pelicula o serie
+    public void addReview(Review review, Movie movie) {
+        movie.addReview(review);
+    }
+
+    @Override
+    public void rateAReviewPositevely(ReviewType review) {
+        review.ratePositevely();
     }
 }

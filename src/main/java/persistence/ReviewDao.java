@@ -1,7 +1,10 @@
 package persistence;
 
-import model.TypeReview;
+import model.Movie;
+import model.Review;
+import model.ReviewType;
 
 public interface ReviewDao {
-    void addReview(TypeReview review);
+    void addReview(Review review, Movie movie);
+    void rateAReviewPositevely(ReviewType review);
 }
