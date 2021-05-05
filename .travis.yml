@@ -30,5 +30,4 @@ deploy:
   app: resena-backend
   on:
     repo: desapp-grupo-D-012021/backend
-    branch: main
 
