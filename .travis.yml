@@ -23,12 +23,11 @@ after_success:
   - - "./gradlew sonarqube"
 
 deploy:
-  deploy:
-    provider: heroku
-    api_key:
-      secure: VjLrNrL6u6E+7+GfbNkmtb4TG4iM4L5WnU2Y3n+xLXhpi1e0LA2c/GkPR8D03i/3xlc1jF1N4MrMiQPdy06nhZqiJCBoPmq8nKZQDM8IUSDTfmTuL2/0WLMRyve33N/AnqibV5OlP/J7ITBSo1l8IEX67cDFJHKivAEtXlqG0VfsE6h4zOTKNDMhhUwrsoDCGY0qwT2HxDmzHNEmAZX0I8fWFpp9SWpFYA+ls6KdXjpecnjy/VdOrvD6xYeaDpQKGB2Ew8Iwc/zmF3gWL6ffinRvXvLQUplvY6j57+jwacx81/X37bmbDsoOWRFKodgf2unYZifgT+LM2XChzuXbM6Y6YQIlPWUdtEj3awb04zgJ9FBQ1+3FL4qlV4yxVyCA1nyQTzrb74NidchgT82uf+WFQzS6ryGZdXQ0tUP6xrqSS+vdy4Taxex0Vgojlf5hqCG/SRMN4WGESNgvSEfWWH05Gp8/qtfh9h2Ks9eEqpostL4XMvVB2GPUnatGPShcZslO5XBKGh53L41/u59uKzizR+raYzYcKGMwSgpmMAXKd0zXea6xEZrRPFEyXdjUa8dh9258GbVioJkDNLXsykJ+Fepxmg8678pFlZrGNH6oX0HwepKI/YIrIhvb9Rmu3hR7QLRcHzuTCR4V2Jbe1Oa0jLhr+95HL+DlI9kcwYc=
-    app: resena-backend
-    on:
-      repo: desapp-grupo-D-012021/backend
+  provider: heroku
+  api_key:
+    secure: VjLrNrL6u6E+7+GfbNkmtb4TG4iM4L5WnU2Y3n+xLXhpi1e0LA2c/GkPR8D03i/3xlc1jF1N4MrMiQPdy06nhZqiJCBoPmq8nKZQDM8IUSDTfmTuL2/0WLMRyve33N/AnqibV5OlP/J7ITBSo1l8IEX67cDFJHKivAEtXlqG0VfsE6h4zOTKNDMhhUwrsoDCGY0qwT2HxDmzHNEmAZX0I8fWFpp9SWpFYA+ls6KdXjpecnjy/VdOrvD6xYeaDpQKGB2Ew8Iwc/zmF3gWL6ffinRvXvLQUplvY6j57+jwacx81/X37bmbDsoOWRFKodgf2unYZifgT+LM2XChzuXbM6Y6YQIlPWUdtEj3awb04zgJ9FBQ1+3FL4qlV4yxVyCA1nyQTzrb74NidchgT82uf+WFQzS6ryGZdXQ0tUP6xrqSS+vdy4Taxex0Vgojlf5hqCG/SRMN4WGESNgvSEfWWH05Gp8/qtfh9h2Ks9eEqpostL4XMvVB2GPUnatGPShcZslO5XBKGh53L41/u59uKzizR+raYzYcKGMwSgpmMAXKd0zXea6xEZrRPFEyXdjUa8dh9258GbVioJkDNLXsykJ+Fepxmg8678pFlZrGNH6oX0HwepKI/YIrIhvb9Rmu3hR7QLRcHzuTCR4V2Jbe1Oa0jLhr+95HL+DlI9kcwYc=
+  app: resena-backend
+  on:
+    repo: desapp-grupo-D-012021/backend
 
 
