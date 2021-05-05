@@ -1,24 +1,34 @@
 language: java
 
 jdk:
-- oraclejdk11
+  - oraclejdk11
 
 addons:
   sonarcloud:
-    organization: "desapp-grupo-d-012021"
+    organization: desapp-grupo-d-012021
     token:
       secure: l7JI4BXUG5QIc3mNiw8iBLAMvd3V+ng4PEXLzU9k9oD2M2lf/pS74rHvh3x571ck4MTkH+FPWUGnAknpmky2kfVILpTQgNKUveW1ceiAkQot/Cppu276EMmjvfoRRcCfXqAl+HqFujmTML9cZH3/QKHafhfe6jje0EJOkeqpNVJIMgCYrRot9uXImN8AIvrWLGW3tUmG/vOdnupHig5SikVgNo90q32Hw3HbO3JXIHoK2SPxaFpml/C2jJvxA6feEhXwVWdPGrERbNvHDoNbsnDFegk9fvQGnJBAyUA017bU+SzdwJYOnYlkV9Qq5ey8QJsfkvM/oEOFBy2ybAYjjTiuX76omjLRrfElLe+/QuXhB0ZO/xurkrqO3/M4BtklTM+u6E9u4WMJegUNUs/q+CvVfp6KYM/ZX1/jfCPxyWgycaktI3YZDCkbZ+qXgNa0tZRI/JT8WSsuslMm6OOP0+VfI/cuiIIWocHZhk6/MpxnQwNNSeURHqgNanYTxkO5u+zjh/+3Qbq0Xm8MnDt8gw2ji3iB+dXzxMDZFkuA4pfKvYq4b9qespUHgDscbJj1tVQnCuPxa79oRShQZjds+lQY5mb5jzqy1YrFrIb/RuRapFD0qpLvjGaFkFjYkZfXTVEYU2h0MYbNvYfLqcBIu12XskVrdYJnnSBjOL3JVuo=
 
 before_install:
-- chmod +x gradlew
-- sudo apt-get install jq
-- wget -O ~/codacy-coverage-reporter-assembly-latest.jar $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest
-  | jq -r .assets[0].browser_download_url)
+  - chmod +x gradlew
+  - - sudo apt-get install jq
+  - - wget -O ~/codacy-coverage-reporter-assembly-latest.jar $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r .assets[0].browser_download_url)
 
 script:
-- "./gradlew check"
-- "./gradlew jacocoTestReport"
+  - "./gradlew check"
+  - - "./gradlew jacocoTestReport"
 
 after_success:
-- bash <(curl -s https://codecov.io/bash)
-- ./gradlew sonarqube
+  - bash <(curl -s https://codecov.io/bash)
+  - - "./gradlew sonarqube"
+
+deploy:
+  deploy:
+    provider: heroku
+    api_key:
+      secure: VjLrNrL6u6E+7+GfbNkmtb4TG4iM4L5WnU2Y3n+xLXhpi1e0LA2c/GkPR8D03i/3xlc1jF1N4MrMiQPdy06nhZqiJCBoPmq8nKZQDM8IUSDTfmTuL2/0WLMRyve33N/AnqibV5OlP/J7ITBSo1l8IEX67cDFJHKivAEtXlqG0VfsE6h4zOTKNDMhhUwrsoDCGY0qwT2HxDmzHNEmAZX0I8fWFpp9SWpFYA+ls6KdXjpecnjy/VdOrvD6xYeaDpQKGB2Ew8Iwc/zmF3gWL6ffinRvXvLQUplvY6j57+jwacx81/X37bmbDsoOWRFKodgf2unYZifgT+LM2XChzuXbM6Y6YQIlPWUdtEj3awb04zgJ9FBQ1+3FL4qlV4yxVyCA1nyQTzrb74NidchgT82uf+WFQzS6ryGZdXQ0tUP6xrqSS+vdy4Taxex0Vgojlf5hqCG/SRMN4WGESNgvSEfWWH05Gp8/qtfh9h2Ks9eEqpostL4XMvVB2GPUnatGPShcZslO5XBKGh53L41/u59uKzizR+raYzYcKGMwSgpmMAXKd0zXea6xEZrRPFEyXdjUa8dh9258GbVioJkDNLXsykJ+Fepxmg8678pFlZrGNH6oX0HwepKI/YIrIhvb9Rmu3hR7QLRcHzuTCR4V2Jbe1Oa0jLhr+95HL+DlI9kcwYc=
+    app: resena-backend
+    on:
+      repo: desapp-grupo-D-012021/backend
+
+

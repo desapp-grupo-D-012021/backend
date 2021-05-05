@@ -7,3 +7,4 @@ Repositorio para el backend del proyecto de la materia Desarrollo de Aplicacione
 ## Integrantes
 - [Leandro Arroyo](https://github.com/Leandroa77)
 - [Juan Hualampa](https://github.com/juanhualampa) 
+
