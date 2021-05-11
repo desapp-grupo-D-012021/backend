@@ -4,6 +4,8 @@ import model.*;
 import model.ReviewType;
 import persistence.ReviewDao;
 
+import java.util.List;
+
 public class ReviewServiceImpl implements ReviewService {
 
     private ReviewDao dao;
@@ -25,6 +27,11 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void rateAReviewNegatively(ReviewType premiumReview) {
         this.dao.rateAReviewNegatively(premiumReview);
+    }
+
+    @Override
+    public List<Review> findAll() {
+        return this.dao.findAll();
     }
 
 }
