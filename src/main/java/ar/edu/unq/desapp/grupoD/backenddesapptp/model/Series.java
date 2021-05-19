@@ -1,4 +1,4 @@
-package model;
+package ar.edu.unq.desapp.grupoD.backenddesapptp.model;
 
 import java.util.ArrayList;
 import java.util.List;

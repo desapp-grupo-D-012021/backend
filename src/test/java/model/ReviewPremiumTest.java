@@ -1,11 +1,11 @@
 package model;
 
+import ar.edu.unq.desapp.grupoD.backenddesapptp.model.PremiumReview;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import persistence.ReviewDao;
-import persistence.ReviewDaoImpl;
-import service.ReviewServiceImpl;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.ReviewDao;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.service.ReviewServiceImpl;
 
 import java.time.LocalDate;
 
@@ -26,8 +26,7 @@ public class ReviewPremiumTest {
                         .withLanguage("English")
                         .build();
 
-        this.dao = new ReviewDaoImpl();
-        this.service = new ReviewServiceImpl(dao);
+        this.service = new ReviewServiceImpl();
     }
 
     @Test
@@ -37,7 +36,7 @@ public class ReviewPremiumTest {
 
     @Test
     void testRateAReviewNegatively(){
-        this.service.rateAReviewNegatively(this.premiumReview);
+        this.service.rateAReviewNegatively(1);
         Assertions.assertEquals(this.premiumReview.getDislikes(), 1);
         Assertions.assertEquals(this.premiumReview.getLikes(), 0);
     }

@@ -1,38 +1,72 @@
-package model;
+package ar.edu.unq.desapp.grupoD.backenddesapptp.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class ReviewType {
 
+@Entity
+@Table(name = "Reviews_Builder")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+        name="discriminator",
+        discriminatorType=DiscriminatorType.STRING
+)
+public abstract class ReviewType implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "text")
     private String text;
+    @Column(name = "extendedText")
     private String extendedText;
+    @Column(name = "rating")
     private Integer rating;
+    @Column(name = "date")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate publicationDate;
+    @Column(name = "platform")
     private String platform;
+    @Column(name = "username")
     private String userNameInPlatform;
+    @Column(name = "language")
     private String language;
+    @Column(name = "likes")
     private Integer likes;
-    private  Integer dislikes;
+    @Column(name = "dislikes")
+    private Integer dislikes;
 
-    public Integer getRating(){
-        return this.rating;
+    public String getText() {
+        return text;
     }
 
-    public Integer getLikes(){
-        return this.likes;
+    public String getExtendedText() {
+        return extendedText;
     }
 
-    public void ratePositevely(){
-        this.likes++;
+    public LocalDate getPublicationDate() {
+        return publicationDate;
     }
 
-    public Integer getDislikes(){
-        return this.dislikes;
+    public String getPlatform() {
+        return platform;
     }
 
-    public void rateNegatively(){
-        this.dislikes++;
+    public String getUserNameInPlatform() {
+        return userNameInPlatform;
     }
+
+    public String getLanguage() {
+        return language;
+    }
+
 
     public abstract static class Builder {
         private String text;
@@ -90,7 +124,32 @@ public abstract class ReviewType {
         this.platform = builder.platform;
         this.userNameInPlatform = builder.userNameInPlatform;
         this.language = builder.language;
+
+    }
+
+    public ReviewType(){
+        super();
         this.likes = 0;
         this.dislikes = 0;
+    }
+
+    public Integer getRating(){
+        return this.rating;
+    }
+
+    public Integer getLikes(){
+        return this.likes;
+    }
+
+    public void ratePositevely(){
+        this.likes++;
+    }
+
+    public Integer getDislikes(){
+        return this.dislikes;
+    }
+
+    public void rateNegatively(){
+        this.dislikes++;
     }
 }

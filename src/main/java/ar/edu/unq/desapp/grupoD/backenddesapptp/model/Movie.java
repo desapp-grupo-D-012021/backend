@@ -1,4 +1,4 @@
-package model;
+package ar.edu.unq.desapp.grupoD.backenddesapptp.model;
 
 public class Movie extends Video {
 

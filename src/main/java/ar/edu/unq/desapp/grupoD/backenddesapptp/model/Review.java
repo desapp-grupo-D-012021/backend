@@ -1,5 +1,12 @@
-package model;
+package ar.edu.unq.desapp.grupoD.backenddesapptp.model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Reviews")
+@DiscriminatorValue("Review")
 public class Review extends ReviewType {
 
     private Boolean spoilerAlert;
@@ -7,6 +14,10 @@ public class Review extends ReviewType {
 
     public String getCity() {
         return this.city;
+    }
+
+    public Boolean getSpoilerAlert() {
+        return spoilerAlert;
     }
 
     public static class Builder extends ReviewType.Builder{
@@ -34,5 +45,9 @@ public class Review extends ReviewType {
         super(builder);
         this.spoilerAlert = builder.spoilerAlert;
         this.city = builder.city;
+    }
+
+    public Review(){
+        super();
     }
 }

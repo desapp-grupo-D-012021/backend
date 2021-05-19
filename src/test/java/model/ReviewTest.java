@@ -1,11 +1,12 @@
 package model;
 
+import ar.edu.unq.desapp.grupoD.backenddesapptp.model.Movie;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.model.Review;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import persistence.ReviewDao;
-import persistence.ReviewDaoImpl;
-import service.ReviewServiceImpl;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.ReviewDao;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.service.ReviewServiceImpl;
 
 import java.time.LocalDate;
 
@@ -30,8 +31,7 @@ public class ReviewTest {
                         .withUserNameInPlatform("Yisus")
                         .withLanguage("Español")
                         .build();
-        this.dao = new ReviewDaoImpl();
-        this.service = new ReviewServiceImpl(dao);
+        this.service = new ReviewServiceImpl();
     }
 
     @Test
@@ -43,13 +43,14 @@ public class ReviewTest {
 
     void testAddReviewToMovie(){
         this.mockMovie = mock(Movie.class);
-        this.service.addReview(this.review, this.mockMovie);
+        this.service.addReview(this.review);
         verify(this.mockMovie).addReview(this.review);
     }
 
     @Test
     void testRateAReviewPositevely(){
-        this.service.rateAReviewPositevely(this.review);
+        this.service.rateAReviewPositevely(1);
         Assertions.assertEquals(this.review.getLikes(), 1);
     }
+
 }

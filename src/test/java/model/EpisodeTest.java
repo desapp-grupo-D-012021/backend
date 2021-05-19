@@ -1,5 +1,8 @@
 package model;
 
+import ar.edu.unq.desapp.grupoD.backenddesapptp.model.Episode;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.model.PremiumReview;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.model.Review;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
