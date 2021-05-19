@@ -1,7 +1,5 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.persistence;
 
-import ar.edu.unq.desapp.grupoD.backenddesapptp.model.Movie;
-import ar.edu.unq.desapp.grupoD.backenddesapptp.model.Review;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.model.ReviewType;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.repository.CrudRepository;
@@ -19,5 +17,8 @@ public interface ReviewDao extends CrudRepository<ReviewType,Integer> {
     @Override
     <S extends ReviewType> S save(S entity);
 
-    void save(Optional<ReviewType> review);
+    ReviewType save(Optional<ReviewType> review);
+
+    @Override
+    Optional<ReviewType> findById(Integer integer);
 }

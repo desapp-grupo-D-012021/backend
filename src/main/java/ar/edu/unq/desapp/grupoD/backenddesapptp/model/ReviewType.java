@@ -76,6 +76,8 @@ public abstract class ReviewType implements Serializable {
         private String platform;
         private String userNameInPlatform;
         private String language;
+        private Integer likes;
+        private Integer dislikes;
 
         public Builder withText(String text) {
             this.text = text;
@@ -112,6 +114,15 @@ public abstract class ReviewType implements Serializable {
             return this;
         }
 
+        public Builder withLikes(Integer likes){
+            this.likes = likes;
+            return  this;
+        }
+
+        public Builder withDislikes(Integer dislikes){
+            this.dislikes = dislikes;
+            return  this;
+        }
         public abstract ReviewType build();
 
     }
@@ -124,6 +135,8 @@ public abstract class ReviewType implements Serializable {
         this.platform = builder.platform;
         this.userNameInPlatform = builder.userNameInPlatform;
         this.language = builder.language;
+        this.likes = builder.likes;
+        this.dislikes = builder.dislikes;
 
     }
 
