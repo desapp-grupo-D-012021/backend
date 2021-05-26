@@ -1,10 +1,15 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@DiscriminatorValue("Series")
 public class Series extends Media {
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+    @JoinColumn(name = "series_id")
     private List<Episode> episodes;
 
     public Series(String imdbId, String title, String primaryTitle, String originalTitle) {
