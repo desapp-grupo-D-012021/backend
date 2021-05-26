@@ -1,15 +1,28 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public abstract class Media {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private String imdbId;
+    @Column
     private String title;
+    @Column
     private String primaryTitle;
+    @Column
     private String originalTitle;
+    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+            CascadeType.REFRESH })
+    @JoinColumn(name = "media_id")
     private List<Review> reviews;
+    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+            CascadeType.REFRESH })
+    @JoinColumn(name = "media_id")
     private List<PremiumReview> premiumReviews;
 
     public Media(String imdbId, String title, String primaryTitle, String originalTitle){

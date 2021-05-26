@@ -41,6 +41,7 @@ public class ReviewServiceImpl{
         return dao.save(review);
     }
 
+    @Transactional
     public void rateAReviewNegatively(Integer id) {
         Optional<ReviewType> review = dao.findById(id);
         review.ifPresent(reviewType -> reviewType.rateNegatively());
