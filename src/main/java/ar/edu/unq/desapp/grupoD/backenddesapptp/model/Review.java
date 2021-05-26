@@ -2,10 +2,8 @@ package ar.edu.unq.desapp.grupoD.backenddesapptp.model;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-//import javax.persistence.Table;
 
 @Entity
-//@Table(name="Reviews")
 @DiscriminatorValue("Review")
 public class Review extends ReviewType {
 
