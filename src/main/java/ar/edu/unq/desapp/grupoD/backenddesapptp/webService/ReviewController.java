@@ -37,8 +37,14 @@ public class ReviewController {
         service.addReview(review);
     }
 
-    @PutMapping("/reviews/{id}")
-    public void rateAReviewPositively(@PathVariable Integer id){
-        service.rateAReviewPositevely(id);
+    @PatchMapping("/reviews/like/{id}")
+    public Optional<ReviewType> rateAReviewPositively(@PathVariable Integer id){
+       return service.rateAReviewPositevely(id);
     }
+
+    @PatchMapping("/reviews/dislike/{id}")
+    public Optional<ReviewType> rateAReviewNegatively(@PathVariable Integer id){
+        return service.rateAReviewNegatively(id);
+    }
+
 }

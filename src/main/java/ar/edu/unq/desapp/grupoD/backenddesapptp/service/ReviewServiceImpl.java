@@ -33,17 +33,18 @@ public class ReviewServiceImpl{
     }
 
     @Transactional
-    public ReviewType rateAReviewPositevely(Integer id){
+    public Optional<ReviewType> rateAReviewPositevely(Integer id){
 
         Optional<ReviewType> review = dao.findById(id);
         review.ifPresent(ReviewType::ratePositevely);
 
-        return dao.save(review);
+        return review;
     }
 
-    public void rateAReviewNegatively(Integer id) {
+    public Optional<ReviewType> rateAReviewNegatively(Integer id) {
         Optional<ReviewType> review = dao.findById(id);
         review.ifPresent(reviewType -> reviewType.rateNegatively());
-        dao.save(review);
+
+        return review;
     }
 }
