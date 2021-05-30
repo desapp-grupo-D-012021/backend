@@ -28,23 +28,23 @@ public class ReviewServiceImpl{
     }
 
     @Transactional
-    public Optional<ReviewType> getReview(Integer id){
-        return dao.findById(id);
+    public ReviewType getReview(Integer id){
+        return dao.findById(id).get();
     }
 
     @Transactional
-    public Optional<ReviewType> rateAReviewPositevely(Integer id){
+    public ReviewType rateAReviewPositevely(Integer id){
 
-        Optional<ReviewType> review = dao.findById(id);
-        review.ifPresent(ReviewType::ratePositevely);
+        ReviewType review = dao.findById(id).get();
+        review.ratePositevely();
 
         return review;
     }
 
     @Transactional
-    public Optional<ReviewType> rateAReviewNegatively(Integer id) {
-        Optional<ReviewType> review = dao.findById(id);
-        review.ifPresent(ReviewType::rateNegatively);
+    public ReviewType rateAReviewNegatively(Integer id) {
+        ReviewType review = dao.findById(id).get();
+        review.rateNegatively();
 
         return review;
     }

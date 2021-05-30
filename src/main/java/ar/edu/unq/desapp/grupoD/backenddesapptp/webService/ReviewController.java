@@ -5,11 +5,14 @@ import ar.edu.unq.desapp.grupoD.backenddesapptp.model.ReviewType;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.service.ReviewServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @EnableAutoConfiguration
@@ -28,9 +31,19 @@ public class ReviewController {
         return service.findAll();
     }
 
+
     @RequestMapping(value = "/reviews/{id}")
-    public Optional<ReviewType> getReviewbyId(@PathVariable Integer id){
-        return service.getReview(id);
+    public ResponseEntity<? extends Serializable> getReviewbyId(@PathVariable Integer id) {
+        try {
+            ReviewType review = service.getReview(id);
+            return ResponseEntity.ok().body(review);
+        } catch (Exception e) {
+            return reviewNotFound(e);
+        }
+    }
+
+    private ResponseEntity<String> reviewNotFound(Exception e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NOT FOUND");
     }
 
     @PostMapping("/reviews")
@@ -39,12 +52,24 @@ public class ReviewController {
     }
 
     @PatchMapping("/reviews/like/{id}")
-    public Optional<ReviewType> rateAReviewPositively(@PathVariable Integer id){
-       return service.rateAReviewPositevely(id);
+    public ResponseEntity<? extends Serializable> rateAReviewPositively(@PathVariable Integer id){
+       try{
+           ReviewType review = service.rateAReviewPositevely(id);
+           return ResponseEntity.ok().body(review);
+       }catch (Exception e){
+           return reviewNotFound(e);
+       }
+
     }
 
     @PatchMapping("/reviews/dislike/{id}")
-    public Optional<ReviewType> rateAReviewNegatively(@PathVariable Integer id){
-        return service.rateAReviewNegatively(id);
+    public ResponseEntity<? extends Serializable> rateAReviewNegatively(@PathVariable Integer id){
+        try{
+            ReviewType review = service.rateAReviewNegatively(id);
+            return ResponseEntity.ok().body(review);
+        }catch (Exception e){
+            return reviewNotFound(e);
+        }
     }
+
 }

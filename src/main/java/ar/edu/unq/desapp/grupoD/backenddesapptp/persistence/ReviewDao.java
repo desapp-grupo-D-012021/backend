@@ -17,8 +17,6 @@ public interface ReviewDao extends CrudRepository<ReviewType,Integer> {
     @Override
     <S extends ReviewType> S save(S entity);
 
-    ReviewType save(Optional<ReviewType> review);
-
     @Override
     Optional<ReviewType> findById(Integer integer);
 }
