@@ -4,14 +4,20 @@ import ar.edu.unq.desapp.grupoD.backenddesapptp.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 
 //@Configuration
@@ -24,17 +30,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtFilter jwtFilter;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        /*PasswordEncoder encoder =
-                PasswordEncoderFactories.createDelegatingPasswordEncoder();*/
         auth
-                .userDetailsService(service);//.passwordEncoder(encoder);
+                .authenticationProvider(authProvider());
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
+    public DaoAuthenticationProvider authProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(encoder());
+        return authProvider;
+    }
+    @Bean
+    public PasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
     }
 
     @Override
@@ -47,58 +61,43 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
 
-                //.authorizeRequests()
-                //.antMatchers(HttpMethod.GET,"/reviews").permitAll()
-                //.antMatchers(HttpMethod.GET,"/reviews/{id}").permitAll()
-                //.antMatchers(HttpMethod.POST,"/reviews").permitAll()
-                //.antMatchers(HttpMethod.PATCH,"/reviews/like/{id}").permitAll()
-                //.antMatchers(HttpMethod.PATCH,"/reviews/dislike/{id}").permitAll()
-                //.and().headers().frameOptions().sameOrigin()
-                //.and().httpBasic()
-                //.and().csrf().disable().authorizeRequests().antMatchers("/h2-console").permitAll()
-                //.csrf().disable().authorizeRequests().antMatchers("/login").permitAll()
-                //.anyRequest().authenticated()
-
-                //EStas sin comentar
-                //.authorizeRequests().antMatchers(HttpMethod.GET,"/reviews").hasRole("ADMIN")
-                //.and().authorizeRequests().antMatchers(HttpMethod.GET,"/hello").hasRole("USER")
-                //.and().authorizeRequests().antMatchers(HttpMethod.GET,"/hello").permitAll()
-                //.antMatchers(HttpMethod.GET,"/users").permitAll()
-                //.antMatchers(HttpMethod.PATCH,"/users/{username}").permitAll()
-
-               //.and().authorizeRequests().antMatchers(HttpMethod.POST,"/login").permitAll()//comentada
-                //.antMatchers(HttpMethod.POST,"/register").permitAll();
-
                 //ACCEDER A LA CONSOLA H2
                 .authorizeRequests().antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/login/**").permitAll()
+                .antMatchers("/register/**").permitAll()
+                .anyRequest().authenticated()
+                .and().exceptionHandling().and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().cors().configurationSource(configurationCors())
                 .and()
-                .headers().frameOptions().disable()
+                .httpBasic()
+                .and().headers().frameOptions().disable()
                 .and()
-                .csrf().ignoringAntMatchers("/h2-console/**")
+                .csrf().disable()
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                //
+                //.and()
+                //.csrf().ignoringAntMatchers("/h2-console/**")
+                //.ignoringAntMatchers("/login/**")
+                //.ignoringAntMatchers("/register/**")
+                //.and()
+                //.cors().disable();
 
-                .and()
-                .cors().disable();
-
-        http.authorizeRequests().antMatchers("/register").permitAll()
-                .and()
-                .headers().frameOptions().disable()
-                .and()
-                .csrf().ignoringAntMatchers("/register")
-
-                .and()
-                .cors().disable();
 
                 //AUTENTICACION
-                http.csrf().disable().authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .anyRequest().authenticated()
-                        //.and().formLogin().permitAll()
-                        //.and().logout().permitAll()
+                //http.csrf().disable().authorizeRequests()
 
-                .and().
-                exceptionHandling().and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
+    }
+    @Bean
+    public UrlBasedCorsConfigurationSource configurationCors(){
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PATCH"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

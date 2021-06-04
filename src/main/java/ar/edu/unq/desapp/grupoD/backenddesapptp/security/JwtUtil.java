@@ -16,30 +16,6 @@ import java.util.function.Function;
 public class JwtUtil {
 
     private String SECRET_KEY = "secret";
-    /*
-    static void addAuthentication(HttpServletResponse res, String username){
-        String token = Jwts.builder().setSubject(username)
-                .setExpiration(new Date(System.currentTimeMillis() + 60000))
-                .signWith(SignatureAlgorithm.HS512,"secret").compact();
-
-        res.addHeader("Authorization", "Bearer" + token);
-
-    }
-    static Authentication getAuthentication(HttpServletRequest req){
-        String token = req.getHeader("Authorization");
-
-        if(token != null){
-
-            String user = Jwts.parser()
-                    .setSigningKey("secret").parseClaimsJws(token.replace("Bearer","")).getBody().getSubject();
-
-            return user != null ?
-                    new UsernamePasswordAuthenticationToken(user,null, Collections.emptyList()):
-                    null;
-        }
-        return null;
-    }
-    */
 
     public String generateToken(UserDetails user){
         Map<String,Object> claims = new HashMap<>();

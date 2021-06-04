@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.webService;
 
+import ar.edu.unq.desapp.grupoD.backenddesapptp.exceptions.ResourceNotFoundException;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.model.User;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.security.JwtUtil;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.security.TokenResponse;
@@ -12,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,12 +33,13 @@ public class UserController {
     @Autowired
     private UserDetailsService userDetailsService;
 
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody User user) throws Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUser(), user.getPassword()));
         } catch (BadCredentialsException e) {
-            throw new Exception("Incorrect Username or Password", e);
+            throw new ResourceNotFoundException("Wrong username or password");
         }
         final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUser());
 
@@ -45,7 +48,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public User register(@RequestBody User user){
+    public User register(@RequestBody User user) {
         return userServiceImpl.addUser(user);
     }
 

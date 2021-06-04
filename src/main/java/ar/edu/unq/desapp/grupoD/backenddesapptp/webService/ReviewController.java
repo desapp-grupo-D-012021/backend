@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.webService;
 
+import ar.edu.unq.desapp.grupoD.backenddesapptp.exceptions.ResourceNotFoundException;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.model.Review;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.model.ReviewType;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.service.ReviewServiceImpl;
@@ -34,11 +35,11 @@ public class ReviewController {
 
     @RequestMapping(value = "/reviews/{id}")
     public ResponseEntity<? extends Serializable> getReviewbyId(@PathVariable Integer id) {
-        try {
+        try{
             ReviewType review = service.getReview(id);
             return ResponseEntity.ok().body(review);
         } catch (Exception e) {
-            return reviewNotFound(e);
+            throw new ResourceNotFoundException("Review not found with id " + id);
         }
     }
 
@@ -47,8 +48,9 @@ public class ReviewController {
     }
 
     @PostMapping("/reviews")
-    public void addReview(@RequestBody Review review){
+    public ResponseEntity addReview(@RequestBody Review review){
         service.addReview(review);
+        return ResponseEntity.ok().body(review);
     }
 
     @PatchMapping("/reviews/like/{id}")
@@ -57,7 +59,7 @@ public class ReviewController {
            ReviewType review = service.rateAReviewPositevely(id);
            return ResponseEntity.ok().body(review);
        }catch (Exception e){
-           return reviewNotFound(e);
+           throw new ResourceNotFoundException("Review not found with id " + id);
        }
 
     }
@@ -68,7 +70,7 @@ public class ReviewController {
             ReviewType review = service.rateAReviewNegatively(id);
             return ResponseEntity.ok().body(review);
         }catch (Exception e){
-            return reviewNotFound(e);
+            throw new ResourceNotFoundException("Review not found with id " + id);
         }
     }
 
