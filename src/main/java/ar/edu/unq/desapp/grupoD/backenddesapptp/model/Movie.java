@@ -9,7 +9,7 @@ public class Movie extends Video {
 
     public Movie(){}
 
-    public Movie(String imdbId, String title, String primaryTitle, String originalTitle, int year, int runtimeMinutes){
-        super(imdbId, title, primaryTitle, originalTitle, year, runtimeMinutes);
+    public Movie(String imdbId, String title, String primaryTitle, String originalTitle, String genre, int year, int runtimeMinutes){
+        super(imdbId, title, primaryTitle, originalTitle, genre, year, runtimeMinutes);
     }
 }

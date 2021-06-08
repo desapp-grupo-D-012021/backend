@@ -23,12 +23,10 @@ public class MediaController {
     @Autowired
     private MediaService service;
 
-    /*
-    @GetMapping("/oldMedia")
+    @GetMapping("/media")
     public List<Media> allMedia() {
         return service.findAll();
     }
-    */
 
     @RequestMapping(value = "/media/{imdbId}")
     public ResponseEntity<? extends Serializable> getMediabyId(@PathVariable String id) {
@@ -40,35 +38,23 @@ public class MediaController {
         }
     }
 
-    private ResponseEntity<String> mediaNotFound(Exception e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("MEDIA NOT FOUND");
-    }
-
-    /*
-    @RequestMapping(value = "/media/discover/{query}")
-    public ResponseEntity<List<Media>> getMediabyQuery(@RequestParam(required = false) Double rating,
-                                                       @RequestParam(required = false) Integer minReviews,
-                                                       @RequestParam(required = false) String genre,
-                                                       @RequestParam(required = false) Integer fromYear,
-                                                       @RequestParam(required = false) Integer toYear,
-                                                       @RequestParam(required = false) String actorName) {
-        try {
-            List<Media> media = service.filterMedia(rating, minReviews, genre, fromYear, toYear, actorName);
-            return ResponseEntity.ok().body(media);
-        } catch (Exception e) {
-            throw new ResourceNotFoundException("Review not found with query ");
-        }
-    }
-    */
-
-    @GetMapping("/media")
+    @GetMapping("/media/discover")
     public ResponseEntity<Page<Media>> getMedia(MediaPage mediaPage, MediaSearchCriteria mediaSearchCriteria) {
-        return new ResponseEntity<>(service.getMedia(mediaPage,mediaSearchCriteria), HttpStatus.OK);
+        try{
+            return new ResponseEntity<>(service.getMedia(mediaPage,mediaSearchCriteria), HttpStatus.OK);
+        }catch (Exception e){
+            //throw new ResourceNotFoundException("...");
+            throw(e);
+        }
     }
 
     @PostMapping("/media")
     public ResponseEntity<Movie> addMedia(@RequestBody Movie media){
         return new ResponseEntity<Movie>(service.addMedia(media), HttpStatus.OK);
+    }
+
+    private ResponseEntity<String> mediaNotFound(Exception e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("MEDIA NOT FOUND");
     }
 
 }

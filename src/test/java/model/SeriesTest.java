@@ -18,10 +18,12 @@ public class SeriesTest {
     private String primaryTitle = "Game of Thrones";
     //private List<Episode> emptyEpisodesList = new ArrayList<Episode>();
     private Episode winterIsComing;
+    private String genre = "Action";
+    private int year = 2007;
 
     @Test
     void testEmptyEpisodesList() {
-        series = new Series(seriesImdbId, title, primaryTitle, originalTitle);
+        series = new Series(seriesImdbId, title, primaryTitle, originalTitle, genre, year);
         assertTrue(series.getEpisodes().isEmpty());
     }
 
@@ -29,7 +31,7 @@ public class SeriesTest {
     void testAddEpisode() {
         winterIsComing = mock(Episode.class);
 
-        series = new Series(seriesImdbId, title, primaryTitle, originalTitle);
+        series = new Series(seriesImdbId, title, primaryTitle, originalTitle, genre, year);
         series.addEpisode(winterIsComing);
 
         assertEquals(1, series.getEpisodes().size());

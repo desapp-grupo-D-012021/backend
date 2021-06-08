@@ -110,8 +110,8 @@ public class ReviewController {
 
     @GetMapping("/reviews/search")
     @ApiOperation(value = "This method is used to get the reviews.")
-    public ResponseEntity<Page<ReviewType>> search(@PathVariable ReviewPage reviewPage,
-                                                   @PathVariable ReviewSearchCriteria reviewSearchCriteria) {
+    public ResponseEntity<Page<ReviewType>> search(ReviewPage reviewPage,
+                                                   ReviewSearchCriteria reviewSearchCriteria) {
         try {
             Page<ReviewType> reviews = service.getReviews(reviewPage, reviewSearchCriteria);
             return ResponseEntity.ok().body(reviews);

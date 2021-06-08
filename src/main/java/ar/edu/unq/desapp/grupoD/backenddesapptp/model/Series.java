@@ -12,8 +12,8 @@ public class Series extends Media {
     @JoinColumn(name = "series_id")
     private List<Episode> episodes;
 
-    public Series(String imdbId, String title, String primaryTitle, String originalTitle, int year) {
-        super(imdbId, title, primaryTitle, originalTitle, year);
+    public Series(String imdbId, String title, String primaryTitle, String originalTitle, String genre, int year) {
+        super(imdbId, title, primaryTitle, originalTitle, genre, year);
         this.episodes = new ArrayList<Episode>();
     }
 

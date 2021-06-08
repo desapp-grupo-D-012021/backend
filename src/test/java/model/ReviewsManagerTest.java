@@ -18,6 +18,7 @@ public class ReviewsManagerTest {
     private String title = "Star Wars: Episode IV - A New Hope";
     private String originalTitle = "Star Wars: Episode IV - A New Hope";
     private String primaryTitle = "Star Wars: Episode IV - A New Hope";
+    private String genre = "Action";
     private int runtimeMinutes = 121;
     private int year = 1977;
 
@@ -54,7 +55,7 @@ public class ReviewsManagerTest {
         theForceWillBeWithYou = mock(Review.class);
         legendaryPieceOfCinema = mock(Review.class);
 
-        starWarsEpisodeIV = new Movie(movieImdbId, title, primaryTitle, originalTitle, year, runtimeMinutes);
+        starWarsEpisodeIV = new Movie(movieImdbId, title, primaryTitle, originalTitle, genre, year, runtimeMinutes);
         starWarsEpisodeIV.addReview(theForceWillBeWithYou);
         starWarsEpisodeIV.addReview(legendaryPieceOfCinema);
 

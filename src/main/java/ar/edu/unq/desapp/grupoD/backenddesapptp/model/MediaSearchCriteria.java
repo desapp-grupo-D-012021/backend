@@ -4,6 +4,7 @@ public class MediaSearchCriteria {
 
     private String title;
     private String genre;
+    private int year;
 
     public String getTitle() {
         return title;
@@ -19,5 +20,13 @@ public class MediaSearchCriteria {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 }

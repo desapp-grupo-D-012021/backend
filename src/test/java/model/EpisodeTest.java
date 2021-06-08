@@ -18,26 +18,28 @@ public class EpisodeTest {
     private String title = "Winter Is Coming";
     private String originalTitle = "Winter Is Coming";
     private String primaryTitle = "Winter Is Coming ";
+    private String genre = "Action";
     private int runtimeMinutes = 62;
+    private int year = 2007;
 
     private Review lateToTheParty;
     private PremiumReview flickFilosopher;
 
     @Test
     void testRuntimeMinutes() {
-        winterIsComing = new Episode(episodeImdbId, title, primaryTitle, originalTitle, runtimeMinutes);
+        winterIsComing = new Episode(episodeImdbId, title, primaryTitle, originalTitle, genre, year, runtimeMinutes);
         assertEquals(62, winterIsComing.getRuntimeMinutes());
     }
 
     @Test
     void testEmptyReviewsList() {
-        winterIsComing = new Episode(episodeImdbId, title, primaryTitle, originalTitle, runtimeMinutes);
+        winterIsComing = new Episode(episodeImdbId, title, primaryTitle, originalTitle, genre, year, runtimeMinutes);
         assertTrue(winterIsComing.getReviews().isEmpty());
     }
 
     @Test
     void testEmptyPremiumReviewsList() {
-        winterIsComing = new Episode(episodeImdbId, title, primaryTitle, originalTitle, runtimeMinutes);
+        winterIsComing = new Episode(episodeImdbId, title, primaryTitle, originalTitle, genre, year, runtimeMinutes);
         assertTrue(winterIsComing.getPremiumReviews().isEmpty());
     }
 
@@ -45,7 +47,7 @@ public class EpisodeTest {
     void testAddReview() {
         lateToTheParty = mock(Review.class);
 
-        winterIsComing = new Episode(episodeImdbId, title, primaryTitle, originalTitle, runtimeMinutes);
+        winterIsComing = new Episode(episodeImdbId, title, primaryTitle, originalTitle, genre, year, runtimeMinutes);
         winterIsComing.addReview(lateToTheParty);
 
         assertEquals(1, winterIsComing.getReviews().size());
@@ -55,7 +57,7 @@ public class EpisodeTest {
     void testAddPremiumReview() {
         flickFilosopher = mock(PremiumReview.class);
 
-        winterIsComing = new Episode(episodeImdbId, title, primaryTitle, originalTitle, runtimeMinutes);
+        winterIsComing = new Episode(episodeImdbId, title, primaryTitle, originalTitle, genre, year, runtimeMinutes);
         winterIsComing.addPremiumReview(flickFilosopher);
 
         assertEquals(1, winterIsComing.getPremiumReviews().size());

@@ -13,8 +13,8 @@ public abstract class Video extends Media {
 
     public Video(){}
 
-    public Video(String imdbId, String title, String primaryTitle, String originalTitle, int year, int runtimeMinutes){
-        super(imdbId, title, primaryTitle, originalTitle, year);
+    public Video(String imdbId, String title, String primaryTitle, String originalTitle, String genre, int year, int runtimeMinutes){
+        super(imdbId, title, primaryTitle, originalTitle, genre, year);
         this.runtimeMinutes = runtimeMinutes;
     }
 

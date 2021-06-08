@@ -21,6 +21,8 @@ public abstract class Media implements Serializable {
     @Column
     private String originalTitle;
     @Column
+    private String genre;
+    @Column
     private int year;
     /*
     @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
@@ -36,11 +38,12 @@ public abstract class Media implements Serializable {
 
     public Media() {}
 
-    public Media(String imdbId, String title, String primaryTitle, String originalTitle, int year){
+    public Media(String imdbId, String title, String primaryTitle, String originalTitle, String genre, int year){
         this.imdbId = imdbId;
         this.title = title;
         this.primaryTitle = primaryTitle;
         this.originalTitle = originalTitle;
+        this.genre = genre;
         this.year = year;
         //this.actors = new ArrayList<String>();
         this.reviews = new ArrayList<Review>();
@@ -77,6 +80,14 @@ public abstract class Media implements Serializable {
 
     public void setOriginalTitle(String originalTitle) {
         this.originalTitle = originalTitle;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public int getYear() {

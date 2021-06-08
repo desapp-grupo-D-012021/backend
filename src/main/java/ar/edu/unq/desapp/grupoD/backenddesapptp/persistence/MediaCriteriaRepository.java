@@ -55,6 +55,9 @@ public class MediaCriteriaRepository {
         if(Objects.nonNull(mediaSearchCriteria.getGenre())){
             predicates.add(criteriaBuilder.like(mediaRoot.get("genre"), "%" + mediaSearchCriteria.getGenre() + "%"));
         }
+        if(Objects.nonNull(mediaSearchCriteria.getYear())){
+            predicates.add(criteriaBuilder.gt(mediaRoot.get("year"), mediaSearchCriteria.getYear()));
+        }
 
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
