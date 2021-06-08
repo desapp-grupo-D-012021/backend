@@ -61,8 +61,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
 
+                .csrf().disable()
                 //ACCEDER A LA CONSOLA H2
                 .authorizeRequests().antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/v2/api-docs","/swagger-resources/configuration/ui", "/swagger-resources",
+                        "/swagger-resources/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
                 .antMatchers("/login/**").permitAll()
                 .antMatchers("/register/**").permitAll()
                 .anyRequest().authenticated()
@@ -73,19 +76,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and().headers().frameOptions().disable()
                 .and()
-                .csrf().disable()
+                //.csrf().disable()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-                //
-                //.and()
-                //.csrf().ignoringAntMatchers("/h2-console/**")
-                //.ignoringAntMatchers("/login/**")
-                //.ignoringAntMatchers("/register/**")
-                //.and()
-                //.cors().disable();
-
-
-                //AUTENTICACION
-                //http.csrf().disable().authorizeRequests()
 
 
     }

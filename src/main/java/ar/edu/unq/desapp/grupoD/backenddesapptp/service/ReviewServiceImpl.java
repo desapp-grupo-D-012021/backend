@@ -1,9 +1,15 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.service;
 
+import ar.edu.unq.desapp.grupoD.backenddesapptp.exceptions.ResourceNotFoundException;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.model.Review;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.model.ReviewPage;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.model.ReviewSearchCriteria;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.model.ReviewType;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.ReviewCriteriaRepository;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.ReviewDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +22,9 @@ public class ReviewServiceImpl{
 
     @Autowired
     private ReviewDao dao;
+
+    @Autowired
+    private ReviewCriteriaRepository reviewCriteriaRepository;
 
     @Transactional
     public List<ReviewType> findAll() {
@@ -46,6 +55,28 @@ public class ReviewServiceImpl{
         ReviewType review = dao.findById(id).get();
         review.rateNegatively();
 
+        return review;
+    }
+
+    @Transactional
+    public ReviewType findReviewByIdAndPlatform(Integer id, String platform) throws Exception {
+        ReviewType reviewType = dao.findReviewByIdAndPlatform(id, platform);
+        if(reviewType == null){
+            throw new Exception();
+        }
+        return reviewType;
+    }
+
+    @Transactional
+    public Page<ReviewType> getReviews(ReviewPage reviewPage, ReviewSearchCriteria reviewSearchCriteria){
+        return reviewCriteriaRepository.findAllWithFilters(reviewPage,reviewSearchCriteria);
+    }
+
+
+    @Transactional
+    public ReviewType addReport(Integer id, ReviewType.ReportType type) {
+        ReviewType review = dao.findById(id).get();
+        review.addReport(type);
         return review;
     }
 }

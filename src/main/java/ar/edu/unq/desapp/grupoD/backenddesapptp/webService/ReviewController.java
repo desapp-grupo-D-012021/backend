@@ -1,13 +1,16 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.webService;
 
 import ar.edu.unq.desapp.grupoD.backenddesapptp.exceptions.ResourceNotFoundException;
-import ar.edu.unq.desapp.grupoD.backenddesapptp.model.Review;
-import ar.edu.unq.desapp.grupoD.backenddesapptp.model.ReviewType;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.model.*;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.service.ReviewServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -17,17 +20,15 @@ import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
+@Api(tags = "Reviews")
 public class ReviewController {
 
     @Autowired
     private ReviewServiceImpl service;
 
-    @RequestMapping("/hello")
-    public String sayHi(){
-        return "hello";
-    }
 
     @GetMapping("/reviews")
+    //@ApiOperation(value = "This method is used to get the reviews.")
     public List<ReviewType> allReviews() {
         return service.findAll();
     }
@@ -71,6 +72,51 @@ public class ReviewController {
             return ResponseEntity.ok().body(review);
         }catch (Exception e){
             throw new ResourceNotFoundException("Review not found with id " + id);
+        }
+    }
+
+    @GetMapping("/reviews/{id}/{platform}")
+    public ResponseEntity findReviewByIdInPlatform(@PathVariable Integer id, @PathVariable String platform){
+        try{
+            ReviewType reviewType = service.findReviewByIdAndPlatform(id,platform);
+            return ResponseEntity.ok().body(reviewType);
+        }catch (Exception e){
+            throw new ResourceNotFoundException("No existe reviews con id " + id + " en plataforma: " + platform );
+        }
+    }
+
+    @PatchMapping("/reviews/report/{id}/{type}")
+    public ResponseEntity reportAReview(@PathVariable Integer id, @PathVariable ReviewType.ReportType type ){
+        try{
+            ReviewType review = service.getReview(id);
+            service.addReport(id,type);
+            return ResponseEntity.ok().body(review);
+        }catch (Exception e){
+            throw new ResourceNotFoundException("Review not found with id " + id);
+        }
+    }
+    /*
+    @GetMapping
+    public ResponseEntity<Page<ReviewType>> search(@PathVariable Integer idImdb, @PathVariable ReviewPage reviewPage,
+                                                       @PathVariable ReviewSearchCriteria reviewSearchCriteria) {
+        try {
+            Page<ReviewType> reviews = service.getReviews(reviewPage, reviewSearchCriteria);
+            return ResponseEntity.ok().body(reviews);
+        }catch (Exception e){
+            throw new ResourceNotFoundException("No existe media con id " + idImdb);
+        }
+    }
+    */
+
+    @GetMapping("/reviews/search")
+    @ApiOperation(value = "This method is used to get the reviews.")
+    public ResponseEntity<Page<ReviewType>> search(@PathVariable ReviewPage reviewPage,
+                                                   @PathVariable ReviewSearchCriteria reviewSearchCriteria) {
+        try {
+            Page<ReviewType> reviews = service.getReviews(reviewPage, reviewSearchCriteria);
+            return ResponseEntity.ok().body(reviews);
+        }catch (Exception e){
+            throw new ResourceNotFoundException("No existe media con id ");
         }
     }
 

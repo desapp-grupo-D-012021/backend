@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 @Entity
@@ -18,9 +19,9 @@ public abstract class ReviewType implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @Column(name = "text")
@@ -43,30 +44,16 @@ public abstract class ReviewType implements Serializable {
     @Column(name = "dislikes")
     private Integer dislikes;
 
-    public String getText() {
-        return text;
-    }
 
-    public String getExtendedText() {
-        return extendedText;
-    }
+    //@OneToOne(mappedBy = "reviewType", cascade = CascadeType.ALL)
+    //@PrimaryKeyJoinColumn
+    //@OneToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "report_id")
+    @Column(name= "receive_reports")
+    private Integer receiveReports;
 
-    public LocalDate getPublicationDate() {
-        return publicationDate;
-    }
-
-    public String getPlatform() {
-        return platform;
-    }
-
-    public String getUserNameInPlatform() {
-        return userNameInPlatform;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
+    @Transient
+    private ArrayList<String> reports;
 
     public abstract static class Builder {
         private String text;
@@ -78,6 +65,8 @@ public abstract class ReviewType implements Serializable {
         private String language;
         private Integer likes;
         private Integer dislikes;
+        private ArrayList<String> reports;
+        private Integer receiveReports;
 
         public Builder withText(String text) {
             this.text = text;
@@ -123,6 +112,16 @@ public abstract class ReviewType implements Serializable {
             this.dislikes = dislikes;
             return  this;
         }
+
+        public Builder withReport(ArrayList<String> reports){
+            this.reports = reports;
+            return this;
+        }
+
+        public Builder withReceiveReports(Integer i){
+            this.receiveReports = i;
+            return this;
+        }
         public abstract ReviewType build();
 
     }
@@ -137,6 +136,8 @@ public abstract class ReviewType implements Serializable {
         this.language = builder.language;
         this.likes = builder.likes;
         this.dislikes = builder.dislikes;
+        this.reports = builder.reports;
+        this.receiveReports = builder.receiveReports;
 
     }
 
@@ -144,6 +145,8 @@ public abstract class ReviewType implements Serializable {
         super();
         this.likes = 0;
         this.dislikes = 0;
+        this.receiveReports = 0;
+        this.reports = new ArrayList<String>();
     }
 
     public Integer getRating(){
@@ -164,5 +167,71 @@ public abstract class ReviewType implements Serializable {
 
     public void rateNegatively(){
         this.dislikes++;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getExtendedText() {
+        return extendedText;
+    }
+
+    public LocalDate getPublicationDate() {
+        return publicationDate;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public String getUserNameInPlatform() {
+        return userNameInPlatform;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public ArrayList<String> getReports() {
+        return reports;
+    }
+
+    public int getId(){
+        return this.id;
+    }
+
+    public Integer getReceiveReports() {
+        return receiveReports;
+    }
+
+    public void setReceiveReports(Integer receiveReports) {
+        this.receiveReports = receiveReports;
+    }
+
+    public void addReport(ReportType type){
+        this.reports.add(type.toString());
+        this.receiveReports++;
+    }
+
+    public boolean hasReport(){
+        return this.receiveReports > 0;
+    }
+
+    public enum  ReportType{
+        OFFENSIVE("Ofensive"),
+        BAD_WORDS("Bad Words"),
+        SPOILER("Spoiler"),
+        SENSELESS("Senseless");
+
+        private final String name;
+
+        private ReportType (String s) {
+            name = s;
+        }
+
+        public String toString() {
+            return this.name;
+        }
     }
 }

@@ -44,8 +44,9 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	testCompile 'junit:junit:4.12'
 	testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.9.0'
-	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 
 }
 
