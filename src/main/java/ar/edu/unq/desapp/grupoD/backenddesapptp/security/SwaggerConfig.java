@@ -47,11 +47,11 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "My REST API",
-                "Some custom description of API.",
+                "Reseña API",
+                "API de proyecto 'Reseña'",
                 "1.0",
                 "Terms of service",
-                new Contact("Sallo Szrajbman", "www.baeldung.com", "salloszraj@gmail.com"),
+                new Contact("Desapp - Grupo D", "https://github.com/desapp-grupo-D-012021/backend", "juan.hualampa@gmail.com"),
                 "License of API",
                 "API license URL",
                 Collections.emptyList());

@@ -5,6 +5,7 @@ import ar.edu.unq.desapp.grupoD.backenddesapptp.model.User;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.security.JwtUtil;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.security.TokenResponse;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.service.UserServiceImpl;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@Api(tags = "Users")
 public class UserController {
 
     @Autowired

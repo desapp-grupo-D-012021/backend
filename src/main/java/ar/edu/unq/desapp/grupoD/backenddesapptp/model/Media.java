@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import java.util.List;
 @Table
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="discriminator", discriminatorType=DiscriminatorType.STRING)
-public abstract class Media {
+public abstract class Media implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -19,6 +20,13 @@ public abstract class Media {
     private String primaryTitle;
     @Column
     private String originalTitle;
+    @Column
+    private int year;
+    /*
+    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+    @JoinColumn(name = "media_id")
+    private List<String> actors;
+    */
     @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
     @JoinColumn(name = "media_id")
     private List<Review> reviews;
@@ -26,11 +34,15 @@ public abstract class Media {
     @JoinColumn(name = "media_id")
     private List<PremiumReview> premiumReviews;
 
-    public Media(String imdbId, String title, String primaryTitle, String originalTitle){
+    public Media() {}
+
+    public Media(String imdbId, String title, String primaryTitle, String originalTitle, int year){
         this.imdbId = imdbId;
         this.title = title;
         this.primaryTitle = primaryTitle;
         this.originalTitle = originalTitle;
+        this.year = year;
+        //this.actors = new ArrayList<String>();
         this.reviews = new ArrayList<Review>();
         this.premiumReviews = new ArrayList<PremiumReview>();
     }
@@ -38,6 +50,50 @@ public abstract class Media {
     public String getImdbId() {
 		return this.imdbId;
 	}
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPrimaryTitle() {
+        return primaryTitle;
+    }
+
+    public void setPrimaryTitle(String primaryTitle) {
+        this.primaryTitle = primaryTitle;
+    }
+
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
+
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public void setPremiumReviews(List<PremiumReview> premiumReviews) {
+        this.premiumReviews = premiumReviews;
+    }
 
     //TODO: add filters (platform, spoiler, type, language, country)
     public List<Review> getReviews() {
@@ -49,12 +105,14 @@ public abstract class Media {
     }
 
     //TODO: (ws?) method to call reviews & critics
+    /*
     public List<ReviewType> getComments() {
         List<ReviewType> comments = new ArrayList<ReviewType>();
 		comments.addAll(this.getPremiumReviews());
         comments.addAll(this.getReviews());
         return comments;
 	}
+	*/
 
     public void addReview(Review review) {
 		this.reviews.add(review);

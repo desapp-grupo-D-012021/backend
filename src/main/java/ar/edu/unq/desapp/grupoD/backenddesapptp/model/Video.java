@@ -11,8 +11,10 @@ public abstract class Video extends Media {
     @Column
     private int runtimeMinutes;
 
-    public Video(String imdbId, String title, String primaryTitle, String originalTitle, int runtimeMinutes){
-        super(imdbId, title, primaryTitle, originalTitle);
+    public Video(){}
+
+    public Video(String imdbId, String title, String primaryTitle, String originalTitle, int year, int runtimeMinutes){
+        super(imdbId, title, primaryTitle, originalTitle, year);
         this.runtimeMinutes = runtimeMinutes;
     }
 
