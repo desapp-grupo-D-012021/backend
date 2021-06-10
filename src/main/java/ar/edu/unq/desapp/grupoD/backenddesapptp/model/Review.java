@@ -10,14 +10,6 @@ public class Review extends ReviewType {
     private Boolean spoilerAlert;
     private String city;
 
-    public String getCity() {
-        return this.city;
-    }
-
-    public Boolean getSpoilerAlert() {
-        return spoilerAlert;
-    }
-
     public static class Builder extends ReviewType.Builder{
 
         private Boolean spoilerAlert;
@@ -47,5 +39,21 @@ public class Review extends ReviewType {
 
     public Review(){
         super();
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public Boolean getSpoilerAlert() {
+        return spoilerAlert;
+    }
+
+    public void setSpoilerAlert(Boolean spoilerAlert) {
+        this.spoilerAlert = spoilerAlert;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

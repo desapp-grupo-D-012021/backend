@@ -55,8 +55,8 @@ public class ReviewCriteriaRepository {
         if(Objects.nonNull(reviewSearchCriteria.getSpoilerAlert())){
             predicates.add(criteriaBuilder.like(reviewRoot.get("spoilerAlert"), "%" + reviewSearchCriteria.getSpoilerAlert() + "%"));
         }
-        if(Objects.nonNull(reviewSearchCriteria.getReviewType())){
-            predicates.add(criteriaBuilder.like(reviewRoot.get("reviewType"), "%" + reviewSearchCriteria.getReviewType() + "%"));
+        if(Objects.nonNull(reviewSearchCriteria.getIsPremium())){
+            predicates.add(criteriaBuilder.like(reviewRoot.get("isPremium"), "%" + reviewSearchCriteria.getIsPremium() + "%"));
         }
         if(Objects.nonNull(reviewSearchCriteria.getLanguage())){
             predicates.add(criteriaBuilder.like(reviewRoot.get("language"), "%" + reviewSearchCriteria.getLanguage() + "%"));

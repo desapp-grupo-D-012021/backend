@@ -65,7 +65,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/users")
+    @GetMapping("/api/users")
     public List<User> allUsers(){
         return userServiceImpl.getAllUsers();
     }

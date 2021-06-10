@@ -59,35 +59,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-
-                .csrf().disable()
-                //ACCEDER A LA CONSOLA H2
-                .authorizeRequests().antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/v2/api-docs","/swagger-resources/configuration/ui", "/swagger-resources",
-                        "/swagger-resources/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
-                .antMatchers("/login/**").permitAll()
-                .antMatchers("/register/**").permitAll()
-                .anyRequest().authenticated()
-                .and().exceptionHandling().and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().cors().configurationSource(configurationCors())
-                .and()
-                .httpBasic()
-                .and().headers().frameOptions().disable()
-                .and()
-                //.csrf().disable()
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-
+        http.csrf().disable();
+        http.cors().configurationSource(configurationCors());
+        http.authorizeRequests()
+                .antMatchers("/api/**").authenticated()
+                .anyRequest().permitAll()
+                .and().exceptionHandling()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.httpBasic()
+                .and().headers().frameOptions().disable();
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
     @Bean
     public UrlBasedCorsConfigurationSource configurationCors(){
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
+        configuration.setAllowedOrigins(Arrays.asList("https://resena-backend.herokuapp.com/"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PATCH"));
         configuration.setAllowCredentials(true);
-
+        configuration.addAllowedHeader("*");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

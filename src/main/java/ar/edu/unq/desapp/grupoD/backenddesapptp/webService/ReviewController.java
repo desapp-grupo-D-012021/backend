@@ -27,14 +27,14 @@ public class ReviewController {
     private ReviewServiceImpl service;
 
 
-    @GetMapping("/reviews")
+    @GetMapping("/api/reviews")
     //@ApiOperation(value = "This method is used to get the reviews.")
     public List<ReviewType> allReviews() {
         return service.findAll();
     }
 
 
-    @RequestMapping(value = "/reviews/{id}")
+    @RequestMapping(value = "/api/reviews/{id}")
     public ResponseEntity<? extends Serializable> getReviewbyId(@PathVariable Integer id) {
         try{
             ReviewType review = service.getReview(id);
@@ -48,13 +48,13 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NOT FOUND");
     }
 
-    @PostMapping("/reviews")
+    @PostMapping("/api/reviews")
     public ResponseEntity addReview(@RequestBody Review review){
         service.addReview(review);
         return ResponseEntity.ok().body(review);
     }
 
-    @PatchMapping("/reviews/like/{id}")
+    @PatchMapping("/api/reviews/like/{id}")
     public ResponseEntity<? extends Serializable> rateAReviewPositively(@PathVariable Integer id){
        try{
            ReviewType review = service.rateAReviewPositevely(id);
@@ -65,7 +65,7 @@ public class ReviewController {
 
     }
 
-    @PatchMapping("/reviews/dislike/{id}")
+    @PatchMapping("/api/reviews/dislike/{id}")
     public ResponseEntity<? extends Serializable> rateAReviewNegatively(@PathVariable Integer id){
         try{
             ReviewType review = service.rateAReviewNegatively(id);
@@ -75,7 +75,7 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/reviews/{id}/{platform}")
+    @GetMapping("/api/reviews/{id}/{platform}")
     public ResponseEntity findReviewByIdInPlatform(@PathVariable Integer id, @PathVariable String platform){
         try{
             ReviewType reviewType = service.findReviewByIdAndPlatform(id,platform);
@@ -85,7 +85,7 @@ public class ReviewController {
         }
     }
 
-    @PatchMapping("/reviews/report/{id}/{type}")
+    @PatchMapping("/api/reviews/report/{id}/{type}")
     public ResponseEntity reportAReview(@PathVariable Integer id, @PathVariable ReviewType.ReportType type ){
         try{
             ReviewType review = service.getReview(id);
@@ -108,7 +108,7 @@ public class ReviewController {
     }
     */
 
-    @GetMapping("/reviews/search")
+    @GetMapping("/api/reviews/search")
     @ApiOperation(value = "This method is used to get the reviews.")
     public ResponseEntity<Page<ReviewType>> search(ReviewPage reviewPage,
                                                    ReviewSearchCriteria reviewSearchCriteria) {

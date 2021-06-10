@@ -4,7 +4,7 @@ public class ReviewSearchCriteria {
 
     private String platform;
     private Boolean spoilerAlert;
-    private ReviewType reviewType;
+    private Boolean isPremium;
     private String language;
     private String city;
 
@@ -24,12 +24,12 @@ public class ReviewSearchCriteria {
         this.spoilerAlert = spoilerAlert;
     }
 
-    public ReviewType getReviewType() {
-        return reviewType;
+    public Boolean getIsPremium() {
+        return isPremium;
     }
 
-    public void setReviewType(ReviewType reviewType) {
-        this.reviewType = reviewType;
+    public void setIsPremium(Boolean bool) {
+        this.isPremium = bool;
     }
 
     public String getLanguage() {

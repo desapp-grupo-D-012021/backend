@@ -14,5 +14,5 @@ public class PremiumReview extends ReviewType {
     public static class Builder extends ReviewType.Builder{
         public ReviewType build(){ return new PremiumReview(this); }
     }
-
+    public PremiumReview(){super();}
 }
