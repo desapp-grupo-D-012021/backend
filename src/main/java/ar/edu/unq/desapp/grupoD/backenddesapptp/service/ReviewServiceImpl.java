@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.service;
 
-import ar.edu.unq.desapp.grupoD.backenddesapptp.exceptions.ResourceNotFoundException;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.model.Review;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.model.ReviewPage;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.model.ReviewSearchCriteria;
@@ -15,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReviewServiceImpl{

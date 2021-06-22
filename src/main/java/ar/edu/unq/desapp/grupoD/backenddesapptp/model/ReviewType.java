@@ -31,7 +31,7 @@ public abstract class ReviewType implements Serializable {
     @Column(name = "rating")
     private Integer rating;
     @Column(name = "date")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate publicationDate;
     @Column(name = "platform")
     private String platform;
@@ -44,16 +44,17 @@ public abstract class ReviewType implements Serializable {
     @Column(name = "dislikes")
     private Integer dislikes;
 
-
-    //@OneToOne(mappedBy = "reviewType", cascade = CascadeType.ALL)
-    //@PrimaryKeyJoinColumn
-    //@OneToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "report_id")
-    @Column(name= "receive_reports")
+    @Column(name = "receive_reports")
     private Integer receiveReports;
 
+    private String city;
+
+    private Boolean spoilerAlert;
+
+    private Boolean isPremium;
     @Transient
     private ArrayList<String> reports;
+
 
     public abstract static class Builder {
         private String text;
@@ -88,7 +89,7 @@ public abstract class ReviewType implements Serializable {
             return this;
         }
 
-        public Builder withPlatform(String platform){
+        public Builder withPlatform(String platform) {
             this.platform = platform;
             return this;
         }
@@ -98,35 +99,36 @@ public abstract class ReviewType implements Serializable {
             return this;
         }
 
-        public Builder withLanguage(String language){
+        public Builder withLanguage(String language) {
             this.language = language;
             return this;
         }
 
-        public Builder withLikes(Integer likes){
+        public Builder withLikes(Integer likes) {
             this.likes = likes;
-            return  this;
+            return this;
         }
 
-        public Builder withDislikes(Integer dislikes){
+        public Builder withDislikes(Integer dislikes) {
             this.dislikes = dislikes;
-            return  this;
+            return this;
         }
 
-        public Builder withReport(ArrayList<String> reports){
+        public Builder withReport(ArrayList<String> reports) {
             this.reports = reports;
             return this;
         }
 
-        public Builder withReceiveReports(Integer i){
+        public Builder withReceiveReports(Integer i) {
             this.receiveReports = i;
             return this;
         }
+
         public abstract ReviewType build();
 
     }
 
-    protected ReviewType(final Builder builder){
+    protected ReviewType(final Builder builder) {
         this.text = builder.text;
         this.extendedText = builder.extendedText;
         this.rating = builder.rating;
@@ -141,31 +143,31 @@ public abstract class ReviewType implements Serializable {
 
     }
 
-    public ReviewType(){
-        super();
+    public ReviewType() {
         this.likes = 0;
         this.dislikes = 0;
         this.receiveReports = 0;
         this.reports = new ArrayList<String>();
+        this.isPremium = null;
     }
 
-    public Integer getRating(){
+    public Integer getRating() {
         return this.rating;
     }
 
-    public Integer getLikes(){
+    public Integer getLikes() {
         return this.likes;
     }
 
-    public void ratePositevely(){
+    public void ratePositevely() {
         this.likes++;
     }
 
-    public Integer getDislikes(){
+    public Integer getDislikes() {
         return this.dislikes;
     }
 
-    public void rateNegatively(){
+    public void rateNegatively() {
         this.dislikes++;
     }
 
@@ -197,7 +199,7 @@ public abstract class ReviewType implements Serializable {
         return reports;
     }
 
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 
@@ -207,6 +209,30 @@ public abstract class ReviewType implements Serializable {
 
     public void setReceiveReports(Integer receiveReports) {
         this.receiveReports = receiveReports;
+    }
+
+    public boolean isPremium() {
+        return this.isPremium;
+    }
+
+    public void setPremium(Boolean isPremium) {
+        this.isPremium = isPremium;
+    }
+
+    public Boolean getSpoilerAlert() {
+        return this.spoilerAlert;
+    }
+
+    public void setSpoilerAlert(Boolean spoilerAlert) {
+        this.spoilerAlert = spoilerAlert;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public void addReport(ReportType type){

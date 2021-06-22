@@ -1,36 +1,11 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.model;
 
 public class ReviewSearchCriteria {
-
-    private String platform;
-    private Boolean spoilerAlert;
-    private Boolean isPremium;
-    private String language;
     private String city;
-
-    public String getPlatform() {
-        return platform;
-    }
-
-    public void setPlatform(String platform) {
-        this.platform = platform;
-    }
-
-    public Boolean getSpoilerAlert() {
-        return spoilerAlert;
-    }
-
-    public void setSpoilerAlert(Boolean spoilerAlert) {
-        this.spoilerAlert = spoilerAlert;
-    }
-
-    public Boolean getIsPremium() {
-        return isPremium;
-    }
-
-    public void setIsPremium(Boolean bool) {
-        this.isPremium = bool;
-    }
+    private String platform;
+    private String language;
+    private boolean spoilerAlert;
+    private boolean isPremium;
 
     public String getLanguage() {
         return language;
@@ -47,4 +22,29 @@ public class ReviewSearchCriteria {
     public void setCity(String city) {
         this.city = city;
     }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public boolean isSpoilerAlert() {
+        return spoilerAlert;
+    }
+
+    public void setSpoilerAlert(boolean spoilerAlert) {
+        this.spoilerAlert = spoilerAlert;
+    }
+
+    public boolean isPremium() {
+        return isPremium;
+    }
+
+    public void setPremium(boolean isPremium) {
+        this.isPremium = isPremium;
+    }
+
 }

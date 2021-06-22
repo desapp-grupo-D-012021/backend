@@ -9,10 +9,17 @@ public class PremiumReview extends ReviewType {
 
     private PremiumReview(Builder builder) {
         super(builder);
+
     }
 
     public static class Builder extends ReviewType.Builder{
         public ReviewType build(){ return new PremiumReview(this); }
     }
-    public PremiumReview(){super();}
+    public PremiumReview(){
+        super();
+        setPremium(true);
+        setSpoilerAlert(false);
+        setCity("");
+    }
+
 }

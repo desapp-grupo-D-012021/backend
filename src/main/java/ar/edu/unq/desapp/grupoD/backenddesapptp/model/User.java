@@ -20,14 +20,10 @@ public class User implements Serializable {
     @Column
     private String password;
 
-    //@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //@JoinTable(name = "Role", joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name="role_id"))
-
-    @Column
-    private String rol;
+    @Transient
+    private boolean isCritic;
 
     public User() {
-        setRole("USER");
     }
 
     public int getId() {
@@ -54,15 +50,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getRol() {
-        return rol;
+    public boolean getCritic() {
+        return isCritic;
     }
 
-    public void setRole(String rol) {
-        this.rol = rol;
-    }
-
-    public void makeAdmin() {
-        this.setRole("ADMIN");
+    public void setCritic(boolean isCritic) {
+        this.isCritic = isCritic;
     }
 }

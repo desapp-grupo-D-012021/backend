@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.model;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -33,27 +34,30 @@ public class Review extends ReviewType {
     }
     Review(final Builder builder) {
         super(builder);
-        this.spoilerAlert = builder.spoilerAlert;
-        this.city = builder.city;
+        this.setSpoilerAlert(builder.spoilerAlert);
+        this.setCity(builder.city);
+
     }
 
     public Review(){
         super();
-    }
-
-    public String getCity() {
-        return this.city;
+        this.setPremium(false);
     }
 
     public Boolean getSpoilerAlert() {
-        return spoilerAlert;
+        return this.spoilerAlert;
     }
 
     public void setSpoilerAlert(Boolean spoilerAlert) {
         this.spoilerAlert = spoilerAlert;
     }
 
+    public String getCity() {
+        return city;
+    }
+
     public void setCity(String city) {
         this.city = city;
     }
+
 }

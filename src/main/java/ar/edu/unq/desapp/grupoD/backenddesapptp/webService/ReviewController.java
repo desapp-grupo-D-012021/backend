@@ -14,6 +14,7 @@ import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.swing.text.html.parser.Entity;
 import java.io.Serializable;
 import java.util.List;
 
@@ -50,6 +51,12 @@ public class ReviewController {
 
     @PostMapping("/api/reviews")
     public ResponseEntity addReview(@RequestBody Review review){
+        service.addReview(review);
+        return ResponseEntity.ok().body(review);
+    }
+
+    @PostMapping("/api/premiumReviews")
+    public ResponseEntity addReview(@RequestBody PremiumReview review){
         service.addReview(review);
         return ResponseEntity.ok().body(review);
     }
@@ -112,12 +119,15 @@ public class ReviewController {
     @ApiOperation(value = "This method is used to get the reviews.")
     public ResponseEntity<Page<ReviewType>> search(ReviewPage reviewPage,
                                                    ReviewSearchCriteria reviewSearchCriteria) {
+        /*
         try {
             Page<ReviewType> reviews = service.getReviews(reviewPage, reviewSearchCriteria);
             return ResponseEntity.ok().body(reviews);
         }catch (Exception e){
             throw new ResourceNotFoundException("No existe media con id ");
-        }
+        }*/
+
+        return new ResponseEntity<>(service.getReviews(reviewPage,reviewSearchCriteria),HttpStatus.OK);
     }
 
 }

@@ -54,17 +54,6 @@ public class UserController {
         return userServiceImpl.addUser(user);
     }
 
-    @PatchMapping("/users/{username}")
-    public ResponseEntity setAdmin(@PathVariable String username){
-        try {
-            User user = userServiceImpl.getUserByUsername(username);
-            userServiceImpl.setUserAsAdmin(user);
-            return ResponseEntity.ok().body(user);
-        }catch (UsernameNotFoundException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
     @GetMapping("/api/users")
     public List<User> allUsers(){
         return userServiceImpl.getAllUsers();
