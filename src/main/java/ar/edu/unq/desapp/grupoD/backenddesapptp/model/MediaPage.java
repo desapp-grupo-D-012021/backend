@@ -5,7 +5,7 @@ import org.springframework.data.domain.Sort;
 public class MediaPage {
 
     private int pageNumber = 0;
-    private int pageSize = 10;
+    private int pageSize = 3;
     private Sort.Direction sortDirection = Sort.Direction. ASC;
     private String sortBy = "title";
 

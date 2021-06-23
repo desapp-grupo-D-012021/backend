@@ -10,4 +10,7 @@ public class Episode extends Video {
     public Episode(String imdbId, String title, String primaryTitle, String originalTitle, String genre, int year, int runtimeMinutes){
         super(imdbId, title, primaryTitle, originalTitle, genre, year, runtimeMinutes);
     }
+
+    public Episode() {
+    }
 }

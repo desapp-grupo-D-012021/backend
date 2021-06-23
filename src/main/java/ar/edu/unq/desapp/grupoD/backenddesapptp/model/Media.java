@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +9,12 @@ import java.util.List;
 @Entity
 @Table
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="discriminator", discriminatorType=DiscriminatorType.STRING)
+@DiscriminatorColumn(name="mediaType", discriminatorType=DiscriminatorType.STRING)
 public abstract class Media implements Serializable {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @NotNull
+    //@GeneratedValue(strategy= GenerationType.IDENTITY)
     private String imdbId;
     @Column
     private String title;

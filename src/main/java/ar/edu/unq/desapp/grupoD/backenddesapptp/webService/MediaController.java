@@ -48,9 +48,19 @@ public class MediaController {
         }
     }
 
-    @PostMapping("/media")
-    public ResponseEntity<Movie> addMedia(@RequestBody Movie media){
-        return new ResponseEntity<Movie>(service.addMedia(media), HttpStatus.OK);
+    @PostMapping("/media/movie")
+    public ResponseEntity<Movie> addMovie(@RequestBody Movie movie){
+        return new ResponseEntity<>(service.addMovie(movie), HttpStatus.OK);
+    }
+
+    @PostMapping("/media/series")
+    public ResponseEntity<Series> addMovie(@RequestBody Series series){
+        return new ResponseEntity<>(service.addSeries(series), HttpStatus.OK);
+    }
+
+    @PostMapping("/media/episode")
+    public ResponseEntity<Episode> addMovie(@RequestBody Episode episode){
+        return new ResponseEntity<>(service.addEpisode(episode), HttpStatus.OK);
     }
 
     private ResponseEntity<String> mediaNotFound(Exception e) {

@@ -1,9 +1,6 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.service;
 
-import ar.edu.unq.desapp.grupoD.backenddesapptp.model.Media;
-import ar.edu.unq.desapp.grupoD.backenddesapptp.model.MediaPage;
-import ar.edu.unq.desapp.grupoD.backenddesapptp.model.MediaSearchCriteria;
-import ar.edu.unq.desapp.grupoD.backenddesapptp.model.Movie;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.model.*;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.MediaCriteriaRepository;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.MediaDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +31,19 @@ public class MediaService {
         return mediaCriteriaRepository.findAllWithFilters(mediaPage, mediaSearchCriteria);
     }
 
-    public Movie addMedia(Movie media){
+    public Media addMedia(Media media){
         return dao.save(media);
+    }
+
+    public Movie addMovie(Movie movie){
+        return dao.save(movie);
+    }
+
+    public Series addSeries(Series series){
+        return dao.save(series);
+    }
+
+    public Episode addEpisode(Episode episode){
+        return dao.save(episode);
     }
 }
