@@ -1,3 +1,10 @@
+--users
+INSERT INTO user (user, password)
+VALUES (
+    'juan',
+    'alguno'
+);
+
 -- media
 INSERT INTO media (imdb_id, title, primary_title, original_title, year, runtime_minutes, genre, media_type)
 VALUES (
@@ -9,10 +16,8 @@ VALUES (
     121,
     'Action',
     'Movie'
-);
-
-INSERT INTO media (imdb_id, title, primary_title, original_title, year, runtime_minutes, genre, media_type)
-VALUES (
+),
+(
     'tt0080684',
     'Star Wars: Episode V - The Empire Strikes Back',
     'Star Wars: Episode V - The Empire Strikes Back',
@@ -21,10 +26,8 @@ VALUES (
     124,
     'Action',
     'Movie'
-);
-
-INSERT INTO media (imdb_id, title, primary_title, original_title, year, runtime_minutes, genre, media_type)
-VALUES (
+),
+(
     'tt0086190',
     'Star Wars: Episode VI - Return of the Jedi',
     'Star Wars: Episode IV - Return of the Jedi',
@@ -33,10 +36,8 @@ VALUES (
     131,
     'Action',
     'Movie'
-);
-
-INSERT INTO media (imdb_id, title, primary_title, original_title, year, runtime_minutes, genre, media_type)
-VALUES (
+),
+(
     'tt0068646',
     'The Godfather',
     'The Godfather',
@@ -45,10 +46,8 @@ VALUES (
     175,
     'Crime',
     'Movie'
-);
-
-INSERT INTO media (imdb_id, title, primary_title, original_title, year, runtime_minutes, genre, media_type)
-VALUES (
+),
+(
     'tt0093870',
     'Robocop',
     'Robocop',
@@ -57,10 +56,8 @@ VALUES (
     102,
     'Action',
     'Movie'
-);
-
-INSERT INTO media (imdb_id, title, primary_title, original_title, year, runtime_minutes, genre, media_type)
-VALUES (
+),
+(
     'tt0102926',
     'The Silence of the Lambs',
     'The Silence of the Lambs',
