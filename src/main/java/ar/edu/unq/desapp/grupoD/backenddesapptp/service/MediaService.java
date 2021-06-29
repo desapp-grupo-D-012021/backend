@@ -23,7 +23,7 @@ public class MediaService {
     }
 
     @Transactional
-    public Media getOldMedia(String id){
+    public Media getMediaById(String id){
         return dao.findById(id).get();
     }
 

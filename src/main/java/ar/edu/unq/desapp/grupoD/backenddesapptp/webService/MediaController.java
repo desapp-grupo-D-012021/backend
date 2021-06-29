@@ -29,12 +29,12 @@ public class MediaController {
     }
 
     @RequestMapping(value = "/media/{imdbId}")
-    public ResponseEntity<? extends Serializable> getMediabyId(@PathVariable String id) {
+    public ResponseEntity<? extends Serializable> getMediabyId(@PathVariable String imdbId) {
         try {
-            Media media = service.getOldMedia(id);
+            Media media = service.getMediaById(imdbId);
             return ResponseEntity.ok().body(media);
         } catch (Exception e) {
-            throw new ResourceNotFoundException("Review not found with id " + id);
+            throw new ResourceNotFoundException("Review not found with id " + imdbId);
         }
     }
 
