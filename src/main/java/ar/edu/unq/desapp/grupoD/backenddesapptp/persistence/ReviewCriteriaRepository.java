@@ -25,12 +25,12 @@ public class ReviewCriteriaRepository {
         this.criteriaBuilder = entityManager.getCriteriaBuilder();
     }
 
-    public Page<ReviewType> findAllWithFilters(ReviewPage reviewPage,
+    public Page<ReviewType> findAllWithFilters(String imdbId,ReviewPage reviewPage,
                                            ReviewSearchCriteria reviewSearchCriteria){
         CriteriaQuery<ReviewType> criteriaQuery = criteriaBuilder.createQuery(ReviewType.class);
         Root<ReviewType> reviewTypeRoot = criteriaQuery.from(ReviewType.class);
 
-        Predicate predicate = getPredicate(reviewSearchCriteria, reviewTypeRoot);
+        Predicate predicate = getPredicate(imdbId,reviewSearchCriteria, reviewTypeRoot);
         criteriaQuery.where(predicate);
         setOrder(reviewPage, criteriaQuery, reviewTypeRoot);
 
@@ -46,9 +46,17 @@ public class ReviewCriteriaRepository {
         return new PageImpl<>(typedQuery.getResultList(), pageable, reviewsCount);
     }
 
-    private Predicate getPredicate(ReviewSearchCriteria reviewSearchCriteria,
+    private Predicate getPredicate(String imdbId,ReviewSearchCriteria reviewSearchCriteria,
                                    Root<ReviewType> reviewTypeRoot) {
         List<Predicate> predicates = new ArrayList<>();
+        reviewSearchCriteria.setId(imdbId);
+        if(Objects.nonNull(reviewSearchCriteria.getId())){
+            predicates.add(
+                    criteriaBuilder.like(reviewTypeRoot.get("media").get("imdbId"),
+                            "%" + reviewSearchCriteria.getId() + "%")
+            );
+        }
+
         if(Objects.nonNull(reviewSearchCriteria.getCity())){
             predicates.add(
                     criteriaBuilder.like(reviewTypeRoot.get("city"),
@@ -63,7 +71,7 @@ public class ReviewCriteriaRepository {
         }
         if(Objects.nonNull(reviewSearchCriteria.getLanguage())){
             predicates.add(
-                    criteriaBuilder.like(reviewTypeRoot.get("languaje"),
+                    criteriaBuilder.like(reviewTypeRoot.get("language"),
                             "%" + reviewSearchCriteria.getLanguage() + "%")
             );
         }

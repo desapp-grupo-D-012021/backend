@@ -1,9 +1,7 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.service;
 
-import ar.edu.unq.desapp.grupoD.backenddesapptp.model.Review;
-import ar.edu.unq.desapp.grupoD.backenddesapptp.model.ReviewPage;
-import ar.edu.unq.desapp.grupoD.backenddesapptp.model.ReviewSearchCriteria;
-import ar.edu.unq.desapp.grupoD.backenddesapptp.model.ReviewType;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.model.*;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.MediaDao;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.ReviewCriteriaRepository;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.ReviewDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +18,8 @@ public class ReviewServiceImpl{
 
     @Autowired
     private ReviewDao dao;
+    @Autowired
+    private MediaDao mediaDao;
 
     @Autowired
     private ReviewCriteriaRepository reviewCriteriaRepository;
@@ -30,12 +30,21 @@ public class ReviewServiceImpl{
     }
 
     @Transactional
-    public ReviewType addReview(ReviewType reviewType){
+    public ReviewType addReview(ReviewType reviewType, String imdbId){
+        Media media = mediaDao.findById(imdbId).get();
+        reviewType.setMedia(media);
         return  dao.save(reviewType);
     }
 
     @Transactional
+    public List<Review> getReviewsFromMediaByImdbId(String imdbId){
+
+        return mediaDao.findById(imdbId).get().getReviews();
+    }
+
+    @Transactional
     public ReviewType getReview(Integer id){
+
         return dao.findById(id).get();
     }
 
@@ -66,10 +75,9 @@ public class ReviewServiceImpl{
     }
 
     @Transactional
-    public Page<ReviewType> getReviews(ReviewPage reviewPage, ReviewSearchCriteria reviewSearchCriteria){
-        return reviewCriteriaRepository.findAllWithFilters(reviewPage,reviewSearchCriteria);
+    public Page<ReviewType> getReviewsWithFilters(String imdbId, ReviewPage reviewPage, ReviewSearchCriteria reviewSearchCriteria){
+        return reviewCriteriaRepository.findAllWithFilters(imdbId,reviewPage,reviewSearchCriteria);
     }
-
 
     @Transactional
     public ReviewType addReport(Integer id, ReviewType.ReportType type) {
@@ -77,4 +85,6 @@ public class ReviewServiceImpl{
         review.addReport(type);
         return review;
     }
+
+
 }

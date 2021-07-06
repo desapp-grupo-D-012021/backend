@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -54,6 +55,11 @@ public abstract class ReviewType implements Serializable {
     private Boolean isPremium;
     @Transient
     private ArrayList<String> reports;
+
+    @ManyToOne
+    @JoinColumn(name="media_id")
+    @JsonIgnore
+    private Media media;
 
 
     public abstract static class Builder {
@@ -233,6 +239,14 @@ public abstract class ReviewType implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public void setMedia(Media media){
+        this.media = media;
+    }
+
+    public Media getMedia(){
+        return this.media;
     }
 
     public void addReport(ReportType type){
