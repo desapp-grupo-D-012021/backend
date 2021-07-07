@@ -28,7 +28,7 @@ public class MediaController {
         return service.findAll();
     }
 
-    @RequestMapping(value = "/media/id/{imdbId}")
+    @RequestMapping(value = "/media/{imdbId}")
     public ResponseEntity<? extends Serializable> getMediabyId(@PathVariable String imdbId) {
         try {
             Media media = service.getMediaById(imdbId);
@@ -38,7 +38,7 @@ public class MediaController {
         }
     }
 
-    @GetMapping("/media/discover")
+    @GetMapping("/discover")
     public ResponseEntity<Page<Media>> getMedia(MediaPage mediaPage, MediaSearchCriteria mediaSearchCriteria) {
         try{
             return new ResponseEntity<>(service.getMedia(mediaPage,mediaSearchCriteria), HttpStatus.OK);
