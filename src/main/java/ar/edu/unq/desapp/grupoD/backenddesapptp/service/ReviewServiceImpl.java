@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.service;
 
+import ar.edu.unq.desapp.grupoD.backenddesapptp.exceptions.ResourceNotFoundException;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.model.*;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.MediaDao;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.ReviewCriteriaRepository;
@@ -48,9 +49,10 @@ public class ReviewServiceImpl{
 
     @Transactional
     public ReviewType getReview(Integer id){
-        ReviewType reviewNull = null;
-        ReviewType review = Optional.ofNullable(reviewNull).orElse(dao.findById(id).get());
-        return review;
+        if(dao.findById(id).isPresent()){
+            return dao.findById(id).get();
+        }
+      throw new ResourceNotFoundException("Review not found with id " + id);
     }
 
     @Transactional
