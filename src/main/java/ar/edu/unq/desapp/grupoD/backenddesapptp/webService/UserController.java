@@ -2,7 +2,7 @@ package ar.edu.unq.desapp.grupoD.backenddesapptp.webService;
 
 import ar.edu.unq.desapp.grupoD.backenddesapptp.exceptions.ResourceNotFoundException;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.model.User;
-import ar.edu.unq.desapp.grupoD.backenddesapptp.security.JwtUtil;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.service.JwtUtil;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.security.TokenResponse;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.service.UserServiceImpl;
 import io.swagger.annotations.Api;
@@ -13,8 +13,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

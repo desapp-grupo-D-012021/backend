@@ -28,7 +28,7 @@ public class MediaController {
         return service.findAll();
     }
 
-    @RequestMapping(value = "/media/{imdbId}")
+    @RequestMapping(value = "/media/id/{imdbId}")
     public ResponseEntity<? extends Serializable> getMediabyId(@PathVariable String imdbId) {
         try {
             Media media = service.getMediaById(imdbId);
@@ -43,8 +43,8 @@ public class MediaController {
         try{
             return new ResponseEntity<>(service.getMedia(mediaPage,mediaSearchCriteria), HttpStatus.OK);
         }catch (Exception e){
-            //throw new ResourceNotFoundException("...");
-            throw(e);
+            throw new ResourceNotFoundException("...");
+            //throw(e);
         }
     }
 
