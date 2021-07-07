@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReviewServiceImpl{
@@ -31,30 +32,31 @@ public class ReviewServiceImpl{
 
     @Transactional
     public ReviewType addReview(ReviewType reviewType, String imdbId){
-        Media media = mediaDao.findById(imdbId).get();
+        Media mediaNull = null;
+        Media media = Optional.ofNullable(mediaNull).orElse(mediaDao.findById(imdbId).get());
         reviewType.setMedia(media);
         return  dao.save(reviewType);
     }
 
     @Transactional
     public List<Review> getReviewsFromMediaByImdbId(String imdbId){
+        List<Review> reviewsNull = null;
+        List<Review> reviews = Optional.ofNullable(reviewsNull).orElse(mediaDao.findById(imdbId).get().getReviews());
 
-        return mediaDao.findById(imdbId).get().getReviews();
+        return reviews;
     }
 
     @Transactional
     public ReviewType getReview(Integer id){
-
-        return dao.findById(id).get();
+        ReviewType reviewNull = null;
+        ReviewType review = Optional.ofNullable(reviewNull).orElse(dao.findById(id).get());
+        return review;
     }
 
     @Transactional
     public ReviewType rateAReviewPositevely(Integer id){
-
-        ReviewType review = dao.findById(id).get();
-        review.ratePositevely();
-
-        return review;
+        dao.findById(id).ifPresent(reviewType -> reviewType.ratePositevely());
+        return dao.findById(id).get();
     }
 
     @Transactional
