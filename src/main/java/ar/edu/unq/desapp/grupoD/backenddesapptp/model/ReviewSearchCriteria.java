@@ -1,11 +1,22 @@
 package ar.edu.unq.desapp.grupoD.backenddesapptp.model;
 
 public class ReviewSearchCriteria {
+
+
+    private static String id;
     private String city;
     private String platform;
     private String language;
     private boolean spoilerAlert;
     private boolean isPremium;
+
+    public static String getId() {
+        return id;
+    }
+
+    public static void setId(String id) {
+        ReviewSearchCriteria.id = id;
+    }
 
     public String getLanguage() {
         return language;
@@ -46,5 +57,6 @@ public class ReviewSearchCriteria {
     public void setPremium(boolean isPremium) {
         this.isPremium = isPremium;
     }
+
 
 }

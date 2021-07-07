@@ -74,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UrlBasedCorsConfigurationSource configurationCors(){
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://resena-backend.herokuapp.com/"));
+        configuration.setAllowedOrigins(Arrays.asList("https://resena-backend.herokuapp.com/", "http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PATCH"));
         configuration.setAllowCredentials(true);
         configuration.addAllowedHeader("*");

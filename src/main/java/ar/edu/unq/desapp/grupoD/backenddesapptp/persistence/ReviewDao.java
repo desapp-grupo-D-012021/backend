@@ -26,6 +26,5 @@ public interface ReviewDao extends CrudRepository<ReviewType,Integer> {
     @Query(value = "SELECT r FROM ReviewType r WHERE r.id = ?1 and r.platform = ?2")
     ReviewType findReviewByIdAndPlatform(Integer id, String platform);
 
-    //List<ReviewType> findByIdAndPlatform(Integer id, String platform);
 
 }

@@ -35,30 +35,28 @@ public class ReviewController {
     }
 
 
-    @RequestMapping(value = "/api/reviews/{id}")
-    public ResponseEntity<? extends Serializable> getReviewbyId(@PathVariable Integer id) {
-        try{
-            ReviewType review = service.getReview(id);
-            return ResponseEntity.ok().body(review);
-        } catch (Exception e) {
-            throw new ResourceNotFoundException("Review not found with id " + id);
-        }
-    }
-
     private ResponseEntity<String> reviewNotFound(Exception e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NOT FOUND");
     }
 
-    @PostMapping("/api/reviews")
-    public ResponseEntity addReview(@RequestBody Review review){
-        service.addReview(review);
-        return ResponseEntity.ok().body(review);
+    @PostMapping("/api/reviews/{imdbId}")
+    public ResponseEntity addReview(@RequestBody Review review,@PathVariable String imdbId){
+        try{
+            service.addReview(review, imdbId);
+            return ResponseEntity.ok().body(review);
+        }catch (Exception e) {
+            throw new ResourceNotFoundException("Media not found with id " + imdbId);
+        }
     }
 
-    @PostMapping("/api/premiumReviews")
-    public ResponseEntity addReview(@RequestBody PremiumReview review){
-        service.addReview(review);
-        return ResponseEntity.ok().body(review);
+    @PostMapping("/api/premiumReviews/{imdbId}")
+    public ResponseEntity addPremiumReview(@RequestBody PremiumReview review, @PathVariable String imdbId){
+        try{
+            service.addReview(review, imdbId);
+            return ResponseEntity.ok().body(review);
+        }catch (Exception e) {
+            throw new ResourceNotFoundException("Media not found with id " + imdbId);
+        }
     }
 
     @PatchMapping("/api/reviews/like/{id}")
@@ -102,32 +100,27 @@ public class ReviewController {
             throw new ResourceNotFoundException("Review not found with id " + id);
         }
     }
-    /*
-    @GetMapping
-    public ResponseEntity<Page<ReviewType>> search(@PathVariable Integer idImdb, @PathVariable ReviewPage reviewPage,
-                                                       @PathVariable ReviewSearchCriteria reviewSearchCriteria) {
+
+    @GetMapping("/api/reviews/search/{imdbId}")
+    @ApiOperation(value = "This method is used to get the reviews with filters.")
+    public ResponseEntity<Page<ReviewType>> searchWithFilters(@PathVariable String imdbId, ReviewPage reviewPage,
+                                                       ReviewSearchCriteria reviewSearchCriteria) {
         try {
-            Page<ReviewType> reviews = service.getReviews(reviewPage, reviewSearchCriteria);
+            Page<ReviewType> reviews = service.getReviewsWithFilters(imdbId,reviewPage, reviewSearchCriteria);
             return ResponseEntity.ok().body(reviews);
         }catch (Exception e){
-            throw new ResourceNotFoundException("No existe media con id " + idImdb);
+            throw new ResourceNotFoundException("No existe media con id " + imdbId);
         }
     }
-    */
 
-    @GetMapping("/api/reviews/search")
-    @ApiOperation(value = "This method is used to get the reviews.")
-    public ResponseEntity<Page<ReviewType>> search(ReviewPage reviewPage,
-                                                   ReviewSearchCriteria reviewSearchCriteria) {
-        /*
-        try {
-            Page<ReviewType> reviews = service.getReviews(reviewPage, reviewSearchCriteria);
+
+    @RequestMapping(value = "/api/reviews/{imdbId}")
+    public ResponseEntity getReviewsbyImbdId(@PathVariable String imdbId) {
+        try{
+            List<Review> reviews = service.getReviewsFromMediaByImdbId(imdbId);
             return ResponseEntity.ok().body(reviews);
-        }catch (Exception e){
-            throw new ResourceNotFoundException("No existe media con id ");
-        }*/
-
-        return new ResponseEntity<>(service.getReviews(reviewPage,reviewSearchCriteria),HttpStatus.OK);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Review not found with id " + imdbId);
+        }
     }
-
 }
