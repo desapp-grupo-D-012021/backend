@@ -3,7 +3,6 @@ package ar.edu.unq.desapp.grupoD.backenddesapptp.persistence;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.model.Media;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.model.MediaPage;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.model.MediaSearchCriteria;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Configuration
 @Repository
 public class MediaCriteriaRepository {
 
@@ -56,7 +54,7 @@ public class MediaCriteriaRepository {
             predicates.add(criteriaBuilder.like(mediaRoot.get("genre"), "%" + mediaSearchCriteria.getGenre() + "%"));
         }
         if(Objects.nonNull(mediaSearchCriteria.getYear())){
-            predicates.add(criteriaBuilder.gt(mediaRoot.get("year"), mediaSearchCriteria.getYear()));
+            predicates.add(criteriaBuilder.equal(mediaRoot.get("year"), mediaSearchCriteria.getYear()));
         }
 
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

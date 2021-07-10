@@ -15,6 +15,7 @@ public class MediaService {
 
     @Autowired
     private MediaDao dao;
+    @Autowired
     private MediaCriteriaRepository mediaCriteriaRepository;
 
     @Transactional

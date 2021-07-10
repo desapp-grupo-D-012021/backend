@@ -23,12 +23,12 @@ public class MediaController {
     @Autowired
     private MediaService service;
 
-    @GetMapping("/media")
+    @GetMapping("/api/media")
     public List<Media> allMedia() {
         return service.findAll();
     }
 
-    @RequestMapping(value = "/media/{imdbId}")
+    @RequestMapping(value = "/api/media/{imdbId}")
     public ResponseEntity<? extends Serializable> getMediabyId(@PathVariable String imdbId) {
         try {
             Media media = service.getMediaById(imdbId);
@@ -37,8 +37,9 @@ public class MediaController {
             throw new ResourceNotFoundException("Review not found with id " + imdbId);
         }
     }
-
-    @GetMapping("/discover")
+    
+    //búsqueda inversa
+    @GetMapping("/api/discover")
     public ResponseEntity<Page<Media>> getMedia(MediaPage mediaPage, MediaSearchCriteria mediaSearchCriteria) {
         try{
             return new ResponseEntity<>(service.getMedia(mediaPage,mediaSearchCriteria), HttpStatus.OK);
@@ -48,17 +49,17 @@ public class MediaController {
         }
     }
 
-    @PostMapping("/media/movie")
+    @PostMapping("/api/media/movie")
     public ResponseEntity<Movie> addMovie(@RequestBody Movie movie){
         return new ResponseEntity<>(service.addMovie(movie), HttpStatus.OK);
     }
 
-    @PostMapping("/media/series")
+    @PostMapping("/api/media/series")
     public ResponseEntity<Series> addMovie(@RequestBody Series series){
         return new ResponseEntity<>(service.addSeries(series), HttpStatus.OK);
     }
 
-    @PostMapping("/media/episode")
+    @PostMapping("/api/media/episode")
     public ResponseEntity<Episode> addMovie(@RequestBody Episode episode){
         return new ResponseEntity<>(service.addEpisode(episode), HttpStatus.OK);
     }

@@ -22,7 +22,6 @@ public class ReviewServiceImpl{
     private ReviewDao dao;
     @Autowired
     private MediaDao mediaDao;
-
     @Autowired
     private ReviewCriteriaRepository reviewCriteriaRepository;
 
