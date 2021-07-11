@@ -113,8 +113,7 @@ public class ReviewController {
         }
     }
 
-
-    @RequestMapping(value = "/api/reviews/{imdbId}")
+    @GetMapping("/api/reviews/{imdbId}")
     public ResponseEntity getReviewsbyImbdId(@PathVariable String imdbId) {
         try{
             List<Review> reviews = service.getReviewsFromMediaByImdbId(imdbId);

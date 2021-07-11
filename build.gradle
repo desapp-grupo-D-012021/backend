@@ -49,6 +49,10 @@ dependencies {
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 	testImplementation 'com.tngtech.archunit:archunit-junit4:0.20.0'
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
 }
 
 test {

@@ -5,6 +5,9 @@ import ar.edu.unq.desapp.grupoD.backenddesapptp.model.*;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.MediaDao;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.ReviewCriteriaRepository;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.ReviewDao;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.SuscriptionDao;
+import ar.edu.unq.desapp.grupoD.backenddesapptp.rabbitmq.MessagingConfig;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.management.Notification;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +26,15 @@ public class ReviewServiceImpl{
     private ReviewDao dao;
     @Autowired
     private MediaDao mediaDao;
+
     @Autowired
     private ReviewCriteriaRepository reviewCriteriaRepository;
+
+    @Autowired
+    private SuscriptionDao suscriptionDao;
+
+    @Autowired
+    private RabbitTemplate template;
 
     @Transactional
     public List<ReviewType> findAll() {
@@ -32,26 +43,31 @@ public class ReviewServiceImpl{
 
     @Transactional
     public ReviewType addReview(ReviewType reviewType, String imdbId){
-        Media mediaNull = null;
-        Media media = Optional.ofNullable(mediaNull).orElse(mediaDao.findById(imdbId).get());
+        Media media = mediaDao.findById(imdbId).get();
         reviewType.setMedia(media);
+        notifySubscribers(imdbId);
         return  dao.save(reviewType);
     }
 
     @Transactional
-    public List<Review> getReviewsFromMediaByImdbId(String imdbId){
-        List<Review> reviewsNull = null;
-        List<Review> reviews = Optional.ofNullable(reviewsNull).orElse(mediaDao.findById(imdbId).get().getReviews());
+    private void notifySubscribers(String imdbId) {
+        if(suscriptionDao.getAllByImdbId(imdbId) != null){
+            NotificationMessage message = new NotificationMessage();
+            message.setImdbId(imdbId);
+            message.setMessage("Se agrego una review con id " + imdbId);
+            template.convertAndSend(MessagingConfig.EXCHANGE, MessagingConfig.ROUTING_KEY, message);
 
-        return reviews;
+        }
+    }
+
+    @Transactional
+    public List<Review> getReviewsFromMediaByImdbId(String imdbId){
+        return mediaDao.findById(imdbId).get().getReviews();
     }
 
     @Transactional
     public ReviewType getReview(Integer id){
-        if(dao.findById(id).isPresent()){
-            return dao.findById(id).get();
-        }
-      throw new ResourceNotFoundException("Review not found with id " + id);
+        return dao.findById(id).get();
     }
 
     @Transactional
