@@ -51,7 +51,7 @@ public class ReviewServiceImpl{
 
     @Transactional
     private void notifySubscribers(String imdbId) {
-        if(suscriptionDao.getAllByImdbId(imdbId) != null){
+        if(suscriptionDao.existsByImdbId(imdbId)){
             NotificationMessage message = new NotificationMessage();
             message.setImdbId(imdbId);
             message.setMessage("Se agrego una review con id " + imdbId);

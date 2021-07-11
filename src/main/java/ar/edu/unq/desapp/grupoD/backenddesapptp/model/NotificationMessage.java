@@ -22,4 +22,8 @@ public class NotificationMessage {
     public void setMessage(String s) {
         this.message = s;
     }
+
+    public String getImdbId() {
+        return this.imdbId;
+    }
 }
