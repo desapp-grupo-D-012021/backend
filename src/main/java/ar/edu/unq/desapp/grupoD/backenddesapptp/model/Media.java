@@ -39,7 +39,7 @@ public abstract class Media implements Serializable {
     @JoinColumn(name = "media_id")
     private List<PremiumReview> premiumReviews;
     */
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "media_id")
     private List<ReviewType> reviews;
 
