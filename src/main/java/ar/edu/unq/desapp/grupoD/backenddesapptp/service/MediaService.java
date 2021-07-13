@@ -4,6 +4,7 @@ import ar.edu.unq.desapp.grupoD.backenddesapptp.model.*;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.MediaCriteriaRepository;
 import ar.edu.unq.desapp.grupoD.backenddesapptp.persistence.MediaDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ public class MediaService {
     private MediaCriteriaRepository mediaCriteriaRepository;
 
     @Transactional
+    @Cacheable(value = "mediaCache")
     public List<Media> findAll() {
         return this.dao.findAll();
     }

@@ -1,10 +1,4 @@
 --users
-INSERT INTO user (user, password)
-VALUES (
-    'juan',
-    'alguno'
-);
-
 -- media
 INSERT INTO media (imdb_id, title, primary_title, original_title, year, runtime_minutes, genre, media_type)
 VALUES (

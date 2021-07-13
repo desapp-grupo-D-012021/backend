@@ -52,7 +52,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	//implementation 'org.apache.commons:commons-pool2'
+	//implementation 'redis.clients:jedis:3.0.0'
+	//implementation 'it.ozimov:embedded-redis:0.7.3'
 }
 
 test {
