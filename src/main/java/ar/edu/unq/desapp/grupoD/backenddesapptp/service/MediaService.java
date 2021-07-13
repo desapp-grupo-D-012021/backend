@@ -20,12 +20,12 @@ public class MediaService {
     private MediaCriteriaRepository mediaCriteriaRepository;
 
     @Transactional
-    @Cacheable(value = "mediaCache")
     public List<Media> findAll() {
         return this.dao.findAll();
     }
 
     @Transactional
+    @Cacheable(value = "mediaCache")
     public Media getMediaById(String id){
         return dao.findById(id).get();
     }
