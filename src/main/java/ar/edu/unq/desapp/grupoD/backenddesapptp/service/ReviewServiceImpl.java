@@ -61,7 +61,7 @@ public class ReviewServiceImpl{
     }
 
     @Transactional
-    public List<Review> getReviewsFromMediaByImdbId(String imdbId){
+    public List<ReviewType> getReviewsFromMediaByImdbId(String imdbId){
         return mediaDao.findById(imdbId).get().getReviews();
     }
 

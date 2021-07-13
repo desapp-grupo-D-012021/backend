@@ -31,12 +31,17 @@ public abstract class Media implements Serializable {
     @JoinColumn(name = "media_id")
     private List<String> actors;
     */
+    /*
     @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
     @JoinColumn(name = "media_id")
     private List<Review> reviews;
     @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
     @JoinColumn(name = "media_id")
     private List<PremiumReview> premiumReviews;
+    */
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "media_id")
+    private List<ReviewType> reviews;
 
     public Media() {}
 
@@ -48,8 +53,8 @@ public abstract class Media implements Serializable {
         this.genre = genre;
         this.year = year;
         //this.actors = new ArrayList<String>();
-        this.reviews = new ArrayList<Review>();
-        this.premiumReviews = new ArrayList<PremiumReview>();
+        this.reviews = new ArrayList<ReviewType>();
+        //this.premiumReviews = new ArrayList<PremiumReview>();
     }
 
     public String getImdbId() {
@@ -100,22 +105,22 @@ public abstract class Media implements Serializable {
         this.year = year;
     }
 
-    public void setReviews(List<Review> reviews) {
+    public void setReviews(List<ReviewType> reviews) {
         this.reviews = reviews;
     }
 
-    public void setPremiumReviews(List<PremiumReview> premiumReviews) {
+    /*public void setPremiumReviews(List<PremiumReview> premiumReviews) {
         this.premiumReviews = premiumReviews;
-    }
+    }*/
 
     //TODO: add filters (platform, spoiler, type, language, country)
-    public List<Review> getReviews() {
+    public List<ReviewType> getReviews() {
         return this.reviews;
     }
 
-    public List<PremiumReview> getPremiumReviews() {
+    /*public List<PremiumReview> getPremiumReviews() {
         return this.premiumReviews;
-    }
+    }*/
 
     //TODO: (ws?) method to call reviews & critics
     /*
@@ -131,7 +136,7 @@ public abstract class Media implements Serializable {
 		this.reviews.add(review);
 	}
 
-    public void addPremiumReview(PremiumReview premiumReview) {
+    /*public void addPremiumReview(PremiumReview premiumReview) {
 		this.premiumReviews.add(premiumReview);
-	}
+	}*/
 }

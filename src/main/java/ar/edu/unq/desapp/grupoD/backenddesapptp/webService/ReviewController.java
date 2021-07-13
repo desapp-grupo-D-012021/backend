@@ -116,7 +116,7 @@ public class ReviewController {
     @GetMapping("/api/reviews/{imdbId}")
     public ResponseEntity getReviewsbyImbdId(@PathVariable String imdbId) {
         try{
-            List<Review> reviews = service.getReviewsFromMediaByImdbId(imdbId);
+            List<ReviewType> reviews = service.getReviewsFromMediaByImdbId(imdbId);
             return ResponseEntity.ok().body(reviews);
         } catch (Exception e) {
             throw new ResourceNotFoundException("Review not found with id " + imdbId);

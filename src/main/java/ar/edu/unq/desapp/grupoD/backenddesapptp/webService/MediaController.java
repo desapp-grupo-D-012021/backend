@@ -28,7 +28,7 @@ public class MediaController {
         return service.findAll();
     }
 
-    @RequestMapping(value = "/api/media/{imdbId}")
+    @GetMapping(value = "/api/media/{imdbId}")
     public ResponseEntity<? extends Serializable> getMediabyId(@PathVariable String imdbId) {
         try {
             Media media = service.getMediaById(imdbId);
